@@ -133,13 +133,13 @@
 
     .reset-btn {
       display: block;
-      margin: 2rem auto 0;
-      padding: 0.8rem 1.6rem;
+      margin: 1rem auto 0;
+      padding: 0.6rem 1.2rem;
       background-color: rgba(24, 119, 242, 0.8);
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 0.9rem;
       cursor: pointer;
       backdrop-filter: blur(6px);
       transition: background 0.3s, transform 0.2s;
@@ -183,9 +183,10 @@
         <h2>Niveau international</h2>
         <canvas id="chartWorld"></canvas>
         <div class="legend" id="legendWorld"></div>
+        <button class="reset-btn" data-chart="world">Réinitialiser</button>
       </div>
       <div class="info-bubble">
-        <p>Il est facile de remarquer l’étonnante et soudaine croissance de Tiktok sur ce graphique. En effet, suite au rachat de l’application Musically par ByteDance pour la somme colossale de 800 millions de dollars, ce réseau a connu une expansion encore jamais vu à ce jour. Si bien que son format de contenu a su influencer les réseaux sociaux antérieurs à ce dernier et très iconique tels que Youtube pour leurs Shorts ou même Instagram concernant les Reels.</p>
+        <p>Il est facile de remarquer l’étonnante et soudaine croissance de Tiktok sur ce graphique. En effet, suite au rachat de l’application Musically par ByteDance pour la somme colossale de 800 millions de dollars, ce réseau a connu une expansion encore jamais vue.</p>
       </div>
     </div>
 
@@ -195,9 +196,10 @@
         <h2>En Europe</h2>
         <canvas id="chartEurope"></canvas>
         <div class="legend" id="legendEurope"></div>
+        <button class="reset-btn" data-chart="europe">Réinitialiser</button>
       </div>
       <div class="info-bubble">
-<p>Il est facile de remarquer l’étonnante et soudaine croissance de Tiktok sur ce graphique. En effet, suite au rachat de l’application Musically par ByteDance pour la somme colossale de 800 millions de dollars, ce réseau a connu une expansion encore jamais vu à ce jour. Si bien que son format de contenu a su influencer les réseaux sociaux antérieurs à ce dernier et très iconique tels que Youtube pour leurs Shorts ou même Instagram concernant les Reels.</p>
+        <p>En Europe aussi, TikTok a connu une progression spectaculaire dès 2019, surpassant plusieurs plateformes historiques grâce à son format court et viral.</p>
       </div>
     </div>
 
@@ -207,14 +209,13 @@
         <h2>En France</h2>
         <canvas id="chartFrance"></canvas>
         <div class="legend" id="legendFrance"></div>
+        <button class="reset-btn" data-chart="france">Réinitialiser</button>
       </div>
       <div class="info-bubble">
-        <p>En 2021, la majorité des utilisateurs d’Instagram (84%) et de Tiktok (52%) se situe dans une tranche d’âge entre 16 et 25 ans. Tandis que sur Facebook, 25% de ses    utilisateurs sont âgé entre 25 et 34 ans, 20% entre 34 et 44 ans et 16% entre 45 et 54 ans.</p>
+        <p>En France, les jeunes de 16 à 25 ans représentent la majorité des utilisateurs de TikTok et Instagram, tandis que Facebook reste dominant auprès des plus de 30 ans.</p>
       </div>
     </div>
   </div>
-
-  <button class="reset-btn" id="resetBtn">Réinitialiser</button>
 
   <script>
     const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
@@ -295,7 +296,12 @@
     const chartWorld = createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
     const chartEurope = createChart(document.getElementById("chartEurope"), dataEurope, "millions");
     const chartFrance = createChart(document.getElementById("chartFrance"), dataFrance, "millions");
-    const charts = [chartWorld, chartEurope, chartFrance];
+
+    const charts = {
+      world: chartWorld,
+      europe: chartEurope,
+      france: chartFrance
+    };
 
     function createLegend(containerId, data, chart) {
       const container = document.getElementById(containerId);
@@ -321,8 +327,10 @@
       chart.update();
     }
 
-    document.getElementById("resetBtn").addEventListener("click", () => {
-      charts.forEach(chart => {
+    document.querySelectorAll(".reset-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.chart;
+        const chart = charts[target];
         chart.data.datasets.forEach(ds => {
           ds.borderColor = colors[ds.label];
           ds.backgroundColor = colors[ds.label];
