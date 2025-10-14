@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classement des Réseaux Sociaux (2015–2025)</title>
-
-  <!-- ✅ Chart.js version stable compatible -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
-  <!-- ✅ Google Fonts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap" rel="stylesheet">
 
   <style>
@@ -22,54 +20,63 @@
       background-size: cover;
       background-position: center;
     }
-
+    
     h1 {
       text-align: center;
       margin-bottom: 2rem;
       font-weight: 600;
+      letter-spacing: 0.5px;
       color: #fff;
-      text-shadow: 0 2px 6px rgba(255,255,255,0.3);
+      text-shadow: 0 2px 6px rgba(255, 255, 255, 0.233);
       font-family: "Bitcount Prop Single Ink", system-ui;
     }
 
     h2 {
-      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
       color: #fff;
-      text-shadow: 0 2px 6px rgba(100,100,100,0.3);
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
       font-family: "Bitcount Prop Single Ink", system-ui;
     }
 
-    .intro {
-      text-align: center;
-      font-weight: 600;
-      max-width: 800px;
-      margin: auto;
-      margin-bottom: 3rem;
-    }
-
-    /* --- CHARTS --- */
     .charts-container {
       max-width: 1200px;
       margin: auto;
       display: flex;
       flex-direction: column;
       gap: 3rem;
+      align-items: center;
     }
 
+    /* effet glassmorphism */ 
     .chart-card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       padding: 2rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: stretch;
       flex-wrap: wrap;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      transition: 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .chart-card:hover { transform: translateY(-5px); }
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .chart-wrapper {
+      flex: 1;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
     canvas {
       width: 100%;
@@ -77,235 +84,169 @@
       height: 400px;
     }
 
+    .legend {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem 1.2rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(144, 144, 144, 0.323);
+    }
+
+    .legend-item img {
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0));
+      transition: transform 0.2s ease;
+    }
+
+    .legend-item:hover img {
+      transform: scale(1.15);
+    }
+
+    .legend-item:hover {
+      opacity: 0.7;
+    }
+
     .info-bubble {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 1rem 1.2rem;
+      margin-left: 2rem;
       max-width: 260px;
       font-size: 0.95rem;
+      line-height: 1.5;
       color: #fff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0);
     }
 
     .reset-btn {
       display: block;
-      margin: 2rem auto;
+      margin: 2rem auto 0;
       padding: 0.8rem 1.6rem;
-      background-color: rgba(24,119,242,0.8);
+      background-color: rgba(24, 119, 242, 0.8);
       color: #fff;
       border: none;
       border-radius: 10px;
       font-size: 1rem;
       cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s, transform 0.2s;
     }
 
     .reset-btn:hover {
-      background-color: rgba(24,119,242,1);
+      background-color: rgba(24, 119, 242, 1);
       transform: scale(1.05);
     }
 
-    /* --- LEURS HISTOIRES --- */
-    .histoires-section {
-      margin-top: 8rem;
-      text-align: center;
-      color: #fff;
-      font-family: "Bitcount Prop Single Ink", system-ui;
-    }
-
-    .histoires-title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      text-shadow: 0 2px 6px rgba(255,255,255,0.3);
-    }
-
-    .histoires-container {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .histoires-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 1rem;
-    }
-
-    .side-logo {
-      width: 45px;
-      opacity: 0.6;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    .main-logo img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.15);
-      padding: 10px;
-    }
-
-    .side-logo:hover {
-      transform: scale(1.1);
-      opacity: 0.9;
-    }
-
-    .histoires-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      margin: 1.5rem 0;
-    }
-
-    .nav-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .nav-btn:hover {
-      transform: scale(1.2);
-    }
-
-    .network-name {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .histoires-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-
-    .histoires-text {
-      flex: 1;
-      min-width: 300px;
-      text-align: left;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .histoires-pdg {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .histoires-pdg img {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 0.5rem;
-    }
-
-    @media (max-width: 800px) {
-      .histoires-content {
+    @media (max-width: 900px) {
+      .chart-card {
         flex-direction: column;
-        text-align: center;
+        align-items: center;
       }
-      .histoires-text {
-        text-align: center;
+
+      .info-bubble {
+        margin-left: 0;
+        margin-top: 1.5rem;
+        max-width: 90%;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(6px);
+        z-index: -1;
       }
     }
   </style>
 </head>
-
 <body>
-  <h1>Évolution des réseaux sociaux (2015–2025)</h1>
-  <p class="intro">
-    Bienvenue sur Social Data ! Découvrez comment les réseaux sociaux ont évolué
-    au cours des dix dernières années, leurs usages, leurs risques et comment les maîtriser.
-  </p>
+  <h1 class="title">Évolution des réseaux sociaux (2015–2025)</h1>
 
-  <!-- === CHARTS === -->
   <div class="charts-container">
+    <!-- MONDE -->
     <div class="chart-card">
-      <div>
+      <div class="chart-wrapper">
         <h2>Niveau international</h2>
         <canvas id="chartWorld"></canvas>
+        <div class="legend" id="legendWorld"></div>
       </div>
       <div class="info-bubble">
-        <p>La croissance fulgurante de TikTok contraste avec la stabilisation de Facebook depuis 2020.</p>
+        🌎 Ce graphique illustre la domination mondiale de Facebook et YouTube, 
+        ainsi que la montée spectaculaire de TikTok à partir de 2018.
       </div>
     </div>
 
+    <!-- EUROPE -->
     <div class="chart-card">
-      <div>
+      <div class="chart-wrapper">
         <h2>En Europe</h2>
         <canvas id="chartEurope"></canvas>
+        <div class="legend" id="legendEurope"></div>
       </div>
       <div class="info-bubble">
-        <p>Instagram et WhatsApp continuent de progresser, notamment chez les jeunes utilisateurs.</p>
+        🇪🇺 En Europe, Facebook et WhatsApp restent incontournables, 
+        tandis qu’Instagram et TikTok gagnent massivement du terrain entre 2018 et 2025.
       </div>
     </div>
 
+    <!-- FRANCE -->
     <div class="chart-card">
-      <div>
+      <div class="chart-wrapper">
         <h2>En France</h2>
         <canvas id="chartFrance"></canvas>
+        <div class="legend" id="legendFrance"></div>
       </div>
       <div class="info-bubble">
-        <p>Facebook reste dominant, mais TikTok et Instagram gagnent rapidement du terrain.</p>
+        🇫🇷 En France, Facebook domine encore, mais la progression rapide d’Instagram, WhatsApp et TikTok traduit 
+        un changement générationnel marqué.
       </div>
     </div>
   </div>
 
-  <!-- === LEURS HISTOIRES === -->
-  <section id="histoires" class="histoires-section">
-    <h2 class="histoires-title">Leurs histoires</h2>
-
-    <div class="histoires-container">
-      <div class="histoires-logos">
-        <img src="icon/whatsapp.svg" class="side-logo" alt="WhatsApp">
-        <img src="icon/instagram.svg" class="side-logo" alt="Instagram">
-        <div class="main-logo">
-          <img id="mainLogo" src="icon/facebook.svg" alt="Facebook">
-        </div>
-        <img src="icon/tiktok.svg" class="side-logo" alt="TikTok">
-        <img src="icon/youtube.svg" class="side-logo" alt="YouTube">
-      </div>
-
-      <div class="histoires-nav">
-        <button id="prevBtn" class="nav-btn">&lt;</button>
-        <span id="networkName" class="network-name">Facebook</span>
-        <button id="nextBtn" class="nav-btn">&gt;</button>
-      </div>
-
-      <div class="histoires-content">
-        <div class="histoires-text">
-          <p id="networkText">
-            Facebook est un réseau social créé en 2004 permettant aux utilisateurs de partager du contenu, de se connecter avec des amis et de créer des communautés à travers le monde.
-          </p>
-        </div>
-        <div class="histoires-pdg">
-          <img id="pdgPhoto" src="pdg/facebook.jpeg" alt="PDG Facebook">
-          <p id="pdgName">Mark Zuckerberg</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <button class="reset-btn" id="resetBtn">Réinitialiser</button>
 
   <script>
-    // === DONNÉES DES GRAPHIQUES ===
     const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+
     const dataWorld = {
       "Facebook": [1.55,1.69,1.86,2.13,2.32,2.45,2.60,2.74,2.91,3.00,3.10],
       "YouTube": [1.20,1.40,1.50,1.80,2.00,2.30,2.60,2.80,2.90,3.00,3.10],
       "WhatsApp": [0.90,1.00,1.30,1.50,1.80,1.90,2.00,2.20,2.30,2.40,2.50],
       "Instagram": [0.40,0.70,1.00,1.10,1.30,1.50,1.80,2.00,2.20,2.30,2.40],
-      "TikTok": [0,0,0,0.4,0.8,1.1,1.5,1.8,2.1,2.3,2.4],
+      "TikTok": [0.00,0.00,0.00,0.40,0.80,1.10,1.50,1.80,2.10,2.30,2.40],
       "X (Twitter)": [0.32,0.33,0.35,0.37,0.39,0.40,0.42,0.44,0.46,0.48,0.50]
+    };
+
+    const dataEurope = {
+      "Facebook": [270,280,290,300,310,320,330,340,350,355,360],
+      "YouTube": [250,260,270,280,290,300,310,320,330,340,350],
+      "Instagram": [90,100,120,150,180,200,220,240,260,270,280],
+      "WhatsApp": [200,220,240,260,280,300,320,340,350,355,360],
+      "TikTok": [0,0,0,20,60,100,140,180,210,230,250],
+      "X (Twitter)": [65,70,72,74,75,76,77,78,79,80,81]
+    };
+
+    const dataFrance = {
+      "Facebook": [30,32,33,34.9,35,39.6,40,40,40,40,40],
+      "Instagram": [6,10,13,16.7,17,24.9,29,31,32,33,34],
+      "YouTube": [6,7,10,12,19,20,22,24,26,27,28],
+      "WhatsApp": [1.5,8,12,15,16,19,22,25,27,28,30],
+      "TikTok": [0,0,0,4,9,12,15,18,20,21,22],
+      "X (Twitter)": [7,6,8,9,12,12,13,13,13,13,13]
     };
 
     const colors = {
@@ -317,107 +258,86 @@
       "X (Twitter)": "#1DA1F2"
     };
 
-    function createChart(ctx, data) {
-      new Chart(ctx, {
-        type: 'line',
+    const icons = {
+      "Facebook": "icon/facebook.jpg",
+      "YouTube": "icon/youtube.png",
+      "Instagram": "icon/instagram.png",
+      "WhatsApp": "icon/whatsapp.png",
+      "TikTok": "icon/tiktok.png",
+      "X (Twitter)": "icon/x.png"
+    };
+
+    function createChart(ctx, data, unit) {
+      return new Chart(ctx, {
+        type: "line",
         data: {
           labels: years,
           datasets: Object.keys(data).map(net => ({
             label: net,
             data: data[net],
             borderColor: colors[net],
-            tension: 0.35,
+            backgroundColor: colors[net],
+            pointBackgroundColor: colors[net],
+            pointRadius: 3,
             borderWidth: 2,
+            tension: 0.35,
             fill: false
           }))
         },
         options: {
+          responsive: true,
           plugins: { legend: { display: false } },
           scales: {
-            x: { ticks: { color: "#fff" } },
-            y: { ticks: { color: "#fff" } }
+            x: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" } },
+            y: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" }, title: { display: true, text: `Utilisateurs (${unit})` } }
           }
         }
       });
     }
 
-    window.onload = () => {
-      createChart(document.getElementById("chartWorld"), dataWorld);
-      createChart(document.getElementById("chartEurope"), dataWorld);
-      createChart(document.getElementById("chartFrance"), dataWorld);
-    };
+    const chartWorld = createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
+    const chartEurope = createChart(document.getElementById("chartEurope"), dataEurope, "millions");
+    const chartFrance = createChart(document.getElementById("chartFrance"), dataFrance, "millions");
+    const charts = [chartWorld, chartEurope, chartFrance];
 
-    // === SECTION LEURS HISTOIRES ===
-    const networks = [
-      {
-        name: "Facebook",
-        logo: "icon/facebook.svg",
-        text: "Facebook est un réseau social créé en 2004 permettant aux utilisateurs de partager du contenu et de se connecter à travers le monde.",
-        pdg: "Mark Zuckerberg",
-        photo: "pdg/facebook.jpeg"
-      },
-      {
-        name: "Instagram",
-        logo: "icon/instagram.svg",
-        text: "Instagram, lancé en 2010, met l’accent sur le partage de photos et vidéos, et a popularisé les stories éphémères.",
-        pdg: "Adam Mosseri",
-        photo: "pdg/instagram.jpeg"
-      },
-      {
-        name: "WhatsApp",
-        logo: "icon/whatsapp.svg",
-        text: "WhatsApp, créé en 2009, permet d’échanger messages, photos et appels gratuitement à travers le monde.",
-        pdg: "Will Cathcart",
-        photo: "pdg/whatsapp.jpeg"
-      },
-      {
-        name: "TikTok",
-        logo: "icon/tiktok.svg",
-        text: "TikTok, lancé en 2016 par ByteDance, révolutionne la création de contenu court et viral.",
-        pdg: "Shou Zi Chew",
-        photo: "pdg/tiktok.jpeg"
-      },
-      {
-        name: "YouTube",
-        logo: "icon/youtube.svg",
-        text: "YouTube, fondé en 2005, est la plus grande plateforme de partage vidéo, intégrée à Google depuis 2006.",
-        pdg: "Neal Mohan",
-        photo: "pdg/youtube.jpeg"
-      },
-      {
-        name: "X (Twitter)",
-        logo: "icon/x.svg",
-        text: "Twitter, renommé X en 2023, est un réseau social de microblogging favorisant les discussions en temps réel.",
-        pdg: "Elon Musk",
-        photo: "pdg/x.jpeg"
-      }
-    ];
-
-    let currentIndex = 0;
-    const mainLogo = document.getElementById("mainLogo");
-    const networkName = document.getElementById("networkName");
-    const networkText = document.getElementById("networkText");
-    const pdgPhoto = document.getElementById("pdgPhoto");
-    const pdgName = document.getElementById("pdgName");
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + networks.length) % networks.length;
-      updateHistory();
-    });
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % networks.length;
-      updateHistory();
-    });
-
-    function updateHistory() {
-      const net = networks[currentIndex];
-      mainLogo.src = net.logo;
-      mainLogo.alt = net.name;
-      networkName.textContent = net.name;
-      networkText.textContent = net.text;
-      pdgPhoto.src = net.photo;
-      pdgName.textContent = net.pdg;
+    function createLegend(containerId, data, chart) {
+      const container = document.getElementById(containerId);
+      Object.keys(data).forEach(name => {
+        const item = document.createElement("div");
+        item.classList.add("legend-item");
+        item.innerHTML = `
+          <img src="${icons[name]}" alt="${name}" style="width:20px; height:20px; object-fit:contain;">
+          <span style="color:${colors[name]}; font-weight:600;">${name}</span>
+        `;
+        item.addEventListener("click", () => highlightNetwork(name, chart));
+        container.appendChild(item);
+      });
     }
+
+    function highlightNetwork(network, chart) {
+      chart.data.datasets.forEach(ds => {
+        const isSelected = ds.label === network;
+        ds.borderColor = isSelected ? colors[ds.label] : colors[ds.label] + "55";
+        ds.backgroundColor = isSelected ? colors[ds.label] : colors[ds.label] + "33";
+        ds.borderWidth = isSelected ? 3 : 2;
+      });
+      chart.update();
+    }
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      charts.forEach(chart => {
+        chart.data.datasets.forEach(ds => {
+          ds.borderColor = colors[ds.label];
+          ds.backgroundColor = colors[ds.label];
+          ds.borderWidth = 2;
+        });
+        chart.update();
+      });
+    });
+
+    createLegend("legendWorld", dataWorld, chartWorld);
+    createLegend("legendEurope", dataEurope, chartEurope);
+    createLegend("legendFrance", dataFrance, chartFrance);
   </script>
 </body>
 </html>
