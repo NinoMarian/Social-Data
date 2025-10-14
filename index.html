@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classement des Réseaux Sociaux (2015–2025)</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- ✅ Chart.js version stable compatible -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+  <!-- ✅ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap" rel="stylesheet">
 
@@ -216,6 +220,7 @@
     }
   </style>
 </head>
+
 <body>
   <h1>Évolution des réseaux sociaux (2015–2025)</h1>
   <p class="intro">
@@ -223,6 +228,7 @@
     au cours des dix dernières années, leurs usages, leurs risques et comment les maîtriser.
   </p>
 
+  <!-- === CHARTS === -->
   <div class="charts-container">
     <div class="chart-card">
       <div>
@@ -255,7 +261,7 @@
     </div>
   </div>
 
-  <!-- SECTION LEURS HISTOIRES -->
+  <!-- === LEURS HISTOIRES === -->
   <section id="histoires" class="histoires-section">
     <h2 class="histoires-title">Leurs histoires</h2>
 
@@ -291,7 +297,7 @@
   </section>
 
   <script>
-    // === Données des graphiques ===
+    // === DONNÉES DES GRAPHIQUES ===
     const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
     const dataWorld = {
       "Facebook": [1.55,1.69,1.86,2.13,2.32,2.45,2.60,2.74,2.91,3.00,3.10],
@@ -301,6 +307,7 @@
       "TikTok": [0,0,0,0.4,0.8,1.1,1.5,1.8,2.1,2.3,2.4],
       "X (Twitter)": [0.32,0.33,0.35,0.37,0.39,0.40,0.42,0.44,0.46,0.48,0.50]
     };
+
     const colors = {
       "Facebook": "#1877F2",
       "YouTube": "#FF0000",
@@ -310,9 +317,9 @@
       "X (Twitter)": "#1DA1F2"
     };
 
-    function createChart(ctx, data, unit) {
+    function createChart(ctx, data) {
       new Chart(ctx, {
-        type: "line",
+        type: 'line',
         data: {
           labels: years,
           datasets: Object.keys(data).map(net => ({
@@ -334,11 +341,13 @@
       });
     }
 
-    createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
-    createChart(document.getElementById("chartEurope"), dataWorld, "milliards");
-    createChart(document.getElementById("chartFrance"), dataWorld, "milliards");
+    window.onload = () => {
+      createChart(document.getElementById("chartWorld"), dataWorld);
+      createChart(document.getElementById("chartEurope"), dataWorld);
+      createChart(document.getElementById("chartFrance"), dataWorld);
+    };
 
-    // === Section LEURS HISTOIRES ===
+    // === SECTION LEURS HISTOIRES ===
     const networks = [
       {
         name: "Facebook",
