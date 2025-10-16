@@ -170,7 +170,100 @@
         backdrop-filter: blur(6px);
         z-index: -1;
       }
-    }
+    /* ==== SECTION LEURS HISTOIRES ==== */
+.histoires-section {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  gap: 2rem;
+  overflow: hidden;
+  width: 60%;
+  justify-content: center;
+}
+
+.carousel img {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3));
+  cursor: pointer;
+}
+
+.carousel img.active {
+  transform: scale(1.4);
+  opacity: 1;
+}
+
+.carousel img.inactive {
+  opacity: 0.5;
+}
+
+.arrow {
+  font-size: 2rem;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.arrow:hover {
+  background: rgba(255,255,255,0.3);
+  transform: scale(1.1);
+}
+
+.reseau-info {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.reseau-info .texte {
+  max-width: 500px;
+  text-align: left;
+}
+
+.reseau-info .pdg {
+  text-align: center;
+}
+
+.reseau-info img {
+  width: 150px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.reseau-info h2 {
+  text-align: left;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.reseau-info p {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
   </style>
 </head>
 <body>
@@ -343,6 +436,87 @@
     createLegend("legendWorld", dataWorld, chartWorld);
     createLegend("legendEurope", dataEurope, chartEurope);
     createLegend("legendFrance", dataFrance, chartFrance);
+    </script>
+    <script>
+    // === Données des réseaux sociaux ===
+    const reseaux = [
+      {
+        nom: "Facebook",
+        icon: "icon/facebook.svg",
+        pdg: "Mark Zuckerberg",
+        image: "images/mark.jpg",
+        description: "Facebook est un réseau social lancé en 2004 par Mark Zuckerberg. Il est rapidement devenu une plateforme incontournable de communication, de partage et de publicité dans le monde entier."
+      },
+      {
+        nom: "Instagram",
+        icon: "icon/instagram.svg",
+        pdg: "Adam Mosseri",
+        image: "images/adam.jpg",
+        description: "Instagram, racheté par Facebook en 2012, est centré sur le partage de photos et de vidéos, et a popularisé les stories et les reels."
+      },
+      {
+        nom: "WhatsApp",
+        icon: "icon/whatsapp.svg",
+        pdg: "Will Cathcart",
+        image: "images/will.jpg",
+        description: "WhatsApp est une application de messagerie créée en 2009 et rachetée par Facebook en 2014. Elle compte plus de 2 milliards d’utilisateurs."
+      },
+      {
+        nom: "TikTok",
+        icon: "icon/tiktok.svg",
+        pdg: "Shou Zi Chew",
+        image: "images/shou.jpg",
+        description: "TikTok, lancé en 2016 par ByteDance, a révolutionné le format vidéo court avec un algorithme ultra-personnalisé."
+      },
+      {
+        nom: "YouTube",
+        icon: "icon/youtube.svg",
+        pdg: "Neal Mohan",
+        image: "images/neal.jpg",
+        description: "YouTube, fondé en 2005, est devenu la plus grande plateforme de vidéos au monde, appartenant à Google depuis 2006."
+      }
+    ];
+
+    const carousel = document.getElementById("carousel");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    let currentIndex = 0;
+
+    // Génération des icônes
+    function renderIcons() {
+      carousel.innerHTML = "";
+      reseaux.forEach((r, i) => {
+        const img = document.createElement("img");
+        img.src = r.icon;
+        img.alt = r.nom;
+        img.classList.add(i === currentIndex ? "active" : "inactive");
+        carousel.appendChild(img);
+      });
+    }
+
+    function updateDisplay() {
+      const reseau = reseaux[currentIndex];
+      document.getElementById("reseau-nom").textContent = reseau.nom;
+      document.getElementById("reseau-description").textContent = reseau.description;
+      document.getElementById("reseau-image").src = reseau.image;
+      document.getElementById("reseau-pdg").textContent = reseau.pdg;
+      renderIcons();
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + reseaux.length) % reseaux.length;
+      updateDisplay();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % reseaux.length;
+      updateDisplay();
+    });
+
+    // Initialisation
+    renderIcons();
   </script>
+
 </body>
 </html>
