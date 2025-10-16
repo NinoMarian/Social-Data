@@ -4,221 +4,536 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classement des Réseaux Sociaux (2015–2025)</title>
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
       margin: 0;
-      padding: 0;
-      font-family: "Poppins", sans-serif;
+      padding: 2rem;
+      background-image: url(bleu.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(255, 255, 255, 0.233);
+      font-family: "Bitcount Prop Single Ink", system-ui;
     }
 
-    body {
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      color: white;
-      min-height: 100vh;
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+      font-family: "Bitcount Prop Single Ink", system-ui;
+    }
+
+    .charts-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    /* effet glassmorphism */ 
+    .chart-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-wrap: wrap;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .chart-wrapper {
+      flex: 1;
+      min-width: 320px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-    }
-
-    .carousel-container {
-      position: relative;
-      width: 90%;
-      max-width: 900px;
-      overflow: hidden;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-      padding: 20px;
-    }
-
-    .carousel-slide {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .year-card {
-      min-width: 100%;
-      flex-shrink: 0;
-      text-align: center;
-      padding: 20px;
     }
 
     canvas {
-      width: 100% !important;
-      height: 400px !important;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
     }
 
-    .controls {
-      margin-top: 20px;
+    .legend {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem 1.2rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(144, 144, 144, 0.323);
+    }
+
+    .legend-item img {
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0));
+      transition: transform 0.2s ease;
+    }
+
+    .legend-item:hover img {
+      transform: scale(1.15);
+    }
+
+    .legend-item:hover {
+      opacity: 0.7;
+    }
+
+    .info-bubble {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin-left: 2rem;
+      max-width: 260px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #fff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+    }
+
+    .reset-btn {
+      display: block;
+      margin: 1rem auto 0;
+      padding: 0.6rem 1.2rem;
+      background-color: rgba(24, 119, 242, 0.8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .reset-btn:hover {
+      background-color: rgba(24, 119, 242, 1);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      .chart-card {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .info-bubble {
+        margin-left: 0;
+        margin-top: 1.5rem;
+        max-width: 90%;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(6px);
+        z-index: -1;
+      }
+    }
+
+    /* ==== SECTION LEURS HISTOIRES ==== */
+    .histoires-section {
+      margin-top: 5rem;
+      text-align: center;
+    }
+
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 2rem;
+      overflow: hidden;
+      width: 60%;
+      justify-content: center;
+    }
+
+    .carousel img {
+      width: 70px;
+      height: 70px;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3));
+      cursor: pointer;
+    }
+
+    .carousel img.active {
+      transform: scale(1.4);
+      opacity: 1;
+    }
+
+    .carousel img.inactive {
+      opacity: 0.5;
+    }
+
+    .arrow {
+      font-size: 2rem;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .reseau-info {
+      margin-top: 3rem;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
     }
 
-    button {
-      background: #fff;
-      color: #333;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
+    .reseau-info .texte {
+      max-width: 500px;
+      text-align: left;
     }
 
-    button:hover {
-      background: #ffca28;
-      color: #111;
+    .reseau-info .pdg {
+      text-align: center;
     }
 
-    .year-label {
+    .reseau-info img {
+      width: 150px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .reseau-info h2 {
+      text-align: left;
       font-size: 1.5rem;
-      margin-bottom: 10px;
-      font-weight: 600;
-      color: #ffd54f;
+      color: #fff;
+    }
+
+    .reseau-info p {
+      color: #fff;
+      font-size: 1rem;
+      line-height: 1.5;
     }
   </style>
 </head>
-<body>
-  <h1>Classement des Réseaux Sociaux (2015–2025)</h1>
 
-  <div class="carousel-container">
-    <div class="carousel-slide" id="carouselSlide">
-      <!-- Les cartes de chaque année -->
-      <div class="year-card" data-year="2015">
-        <div class="year-label">2015</div>
-        <canvas id="chart2015"></canvas>
+<body>
+  <h1 class="title">Évolution des réseaux sociaux (2015–2025)</h1>
+
+  <div class="charts-container">
+    <!-- MONDE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>Niveau international</h2>
+        <canvas id="chartWorld"></canvas>
+        <div class="legend" id="legendWorld"></div>
+        <button class="reset-btn" data-chart="world">Réinitialiser</button>
       </div>
-      <div class="year-card" data-year="2018">
-        <div class="year-label">2018</div>
-        <canvas id="chart2018"></canvas>
+      <div class="info-bubble">
+        <p>Il est facile de remarquer l’étonnante et soudaine croissance de TikTok sur ce graphique. En effet, suite au rachat de Musically par ByteDance pour 800 millions de dollars, ce réseau a connu une expansion encore jamais vue.</p>
       </div>
-      <div class="year-card" data-year="2021">
-        <div class="year-label">2021</div>
-        <canvas id="chart2021"></canvas>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>En Europe</h2>
+        <canvas id="chartEurope"></canvas>
+        <div class="legend" id="legendEurope"></div>
+        <button class="reset-btn" data-chart="europe">Réinitialiser</button>
       </div>
-      <div class="year-card" data-year="2025">
-        <div class="year-label">2025</div>
-        <canvas id="chart2025"></canvas>
+      <div class="info-bubble">
+        <p>En Europe aussi, TikTok a connu une progression spectaculaire dès 2019, surpassant plusieurs plateformes historiques grâce à son format court et viral.</p>
+      </div>
+    </div>
+
+    <!-- FRANCE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>En France</h2>
+        <canvas id="chartFrance"></canvas>
+        <div class="legend" id="legendFrance"></div>
+        <button class="reset-btn" data-chart="france">Réinitialiser</button>
+      </div>
+      <div class="info-bubble">
+        <p>En France, les jeunes de 16 à 25 ans représentent la majorité des utilisateurs de TikTok et Instagram, tandis que Facebook reste dominant auprès des plus de 30 ans.</p>
       </div>
     </div>
   </div>
 
-  <div class="controls">
-    <button id="prevBtn">◀ Précédent</button>
-    <button id="nextBtn">Suivant ▶</button>
-  </div>
+  <!-- SECTION LEURS HISTOIRES -->
+  <section class="histoires-section">
+    <h1>Leurs histoires</h1>
+    <div class="carousel-container">
+      <button id="prev" class="arrow">❮</button>
+      <div id="carousel" class="carousel"></div>
+      <button id="next" class="arrow">❯</button>
+    </div>
+
+    <div class="reseau-info">
+      <div class="texte">
+        <h2 id="reseau-nom"></h2>
+        <p id="reseau-description"></p>
+      </div>
+      <div class="pdg">
+        <img id="reseau-image" src="" alt="PDG">
+        <p id="reseau-pdg"></p>
+      </div>
+    </div>
+  </section>
 
   <script>
-    // Données du classement
-    const dataByYear = {
-      2015: {
-        labels: ["Facebook", "Instagram", "Twitter", "Snapchat", "LinkedIn"],
-        values: [1800, 400, 310, 200, 100]
-      },
-      2018: {
-        labels: ["Facebook", "Instagram", "Twitter", "Snapchat", "TikTok"],
-        values: [2300, 1000, 330, 300, 500]
-      },
-      2021: {
-        labels: ["Facebook", "Instagram", "TikTok", "Snapchat", "Twitter"],
-        values: [2800, 1500, 1200, 500, 400]
-      },
-      2025: {
-        labels: ["Instagram", "TikTok", "YouTube", "Facebook", "X (Twitter)"],
-        values: [2500, 2300, 2200, 1500, 600]
-      }
+    const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    const dataWorld = {
+      "Facebook": [1.55,1.69,1.86,2.13,2.32,2.45,2.60,2.74,2.91,3.00,3.10],
+      "YouTube": [1.20,1.40,1.50,1.80,2.00,2.30,2.60,2.80,2.90,3.00,3.10],
+      "WhatsApp": [0.90,1.00,1.30,1.50,1.80,1.90,2.00,2.20,2.30,2.40,2.50],
+      "Instagram": [0.40,0.70,1.00,1.10,1.30,1.50,1.80,2.00,2.20,2.30,2.40],
+      "TikTok": [0.00,0.00,0.00,0.40,0.80,1.10,1.50,1.80,2.10,2.30,2.40],
+      "X (Twitter)": [0.32,0.33,0.35,0.37,0.39,0.40,0.42,0.44,0.46,0.48,0.50]
+    };
+    const dataEurope = {
+      "Facebook": [270,280,290,300,310,320,330,340,350,355,360],
+      "YouTube": [250,260,270,280,290,300,310,320,330,340,350],
+      "Instagram": [90,100,120,150,180,200,220,240,260,270,280],
+      "WhatsApp": [200,220,240,260,280,300,320,340,350,355,360],
+      "TikTok": [0,0,0,20,60,100,140,180,210,230,250],
+      "X (Twitter)": [65,70,72,74,75,76,77,78,79,80,81]
+    };
+    const dataFrance = {
+      "Facebook": [30,32,33,34.9,35,39.6,40,40,40,40,40],
+      "Instagram": [6,10,13,16.7,17,24.9,29,31,32,33,34],
+      "YouTube": [6,7,10,12,19,20,22,24,26,27,28],
+      "WhatsApp": [1.5,8,12,15,16,19,22,25,27,28,30],
+      "TikTok": [0,0,0,4,9,12,15,18,20,21,22],
+      "X (Twitter)": [7,6,8,9,12,12,13,13,13,13,13]
+    };
+    const colors = {
+      "Facebook": "#1877F2",
+      "YouTube": "#FF0000",
+      "Instagram": "#E1306C",
+      "WhatsApp": "#25D366",
+      "TikTok": "#000000",
+      "X (Twitter)": "#1DA1F2"
+    };
+    const icons = {
+      "Facebook": "icon/facebook.svg",
+      "YouTube": "icon/youtube.svg",
+      "Instagram": "icon/instagram.svg",
+      "WhatsApp": "icon/whatsapp.svg",
+      "TikTok": "icon/tiktok.svg",
+      "X (Twitter)": "icon/x.svg"
     };
 
-    // Création des graphiques
-    function createChart(canvasId, year) {
-      const ctx = document.getElementById(canvasId);
-      if (!ctx) return;
-
-      new Chart(ctx, {
-        type: "bar",
+    function createChart(ctx, data, unit) {
+      return new Chart(ctx, {
+        type: "line",
         data: {
-          labels: dataByYear[year].labels,
-          datasets: [
-            {
-              label: "Utilisateurs (en millions)",
-              data: dataByYear[year].values,
-              backgroundColor: [
-                "#1877f2",
-                "#e1306c",
-                "#69c9d0",
-                "#fffc00",
-                "#1da1f2"
-              ]
-            }
-          ]
+          labels: years,
+          datasets: Object.keys(data).map(net => ({
+            label: net,
+            data: data[net],
+            borderColor: colors[net],
+            backgroundColor: colors[net],
+            pointBackgroundColor: colors[net],
+            pointRadius: 3,
+            borderWidth: 2,
+            tension: 0.35,
+            fill: false
+          }))
         },
         options: {
-          plugins: {
-            legend: { display: false },
-            title: { display: false }
-          },
+          responsive: true,
+          plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { color: "white" },
-              grid: { color: "rgba(255,255,255,0.2)" }
-            },
-            x: {
-              ticks: { color: "white" },
-              grid: { display: false }
-            }
+            x: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" } },
+            y: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" }, title: { display: true, text: `Utilisateurs (${unit})` } }
           }
         }
       });
     }
 
-    // Initialisation
-    createChart("chart2015", "2015");
-    createChart("chart2018", "2018");
-    createChart("chart2021", "2021");
-    createChart("chart2025", "2025");
+    const chartWorld = createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
+    const chartEurope = createChart(document.getElementById("chartEurope"), dataEurope, "millions");
+    const chartFrance = createChart(document.getElementById("chartFrance"), dataFrance, "millions");
 
-    // Carrousel
-    const carouselSlide = document.getElementById("carouselSlide");
-    const yearCards = document.querySelectorAll(".year-card");
-    let counter = 0;
+    const charts = { world: chartWorld, europe: chartEurope, france: chartFrance };
 
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      counter++;
-      if (counter >= yearCards.length) counter = 0;
-      updateCarousel();
-    });
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      counter--;
-      if (counter < 0) counter = yearCards.length - 1;
-      updateCarousel();
-    });
-
-    function updateCarousel() {
-      const slideWidth = yearCards[0].clientWidth;
-      carouselSlide.style.transform = `translateX(-${counter * slideWidth}px)`;
+    function createLegend(containerId, data, chart) {
+      const container = document.getElementById(containerId);
+      Object.keys(data).forEach(name => {
+        const item = document.createElement("div");
+        item.classList.add("legend-item");
+        item.innerHTML = `
+          <img src="${icons[name]}" alt="${name}" style="width:20px; height:20px; object-fit:contain;">
+          <span style="color:${colors[name]}; font-weight:600;">${name}</span>
+        `;
+        item.addEventListener("click", () => highlightNetwork(name, chart));
+        container.appendChild(item);
+      });
     }
 
-    // Ajuste la taille à la fenêtre
-    window.addEventListener("resize", updateCarousel);
+    function highlightNetwork(network, chart) {
+      chart.data.datasets.forEach(ds => {
+        const isSelected = ds.label === network;
+        ds.borderColor = isSelected ? colors[ds.label] : colors[ds.label] + "55";
+        ds.backgroundColor = isSelected ? colors[ds.label] : colors[ds.label] + "33";
+        ds.borderWidth = isSelected ? 3 : 2;
+      });
+      chart.update();
+    }
+
+    document.querySelectorAll(".reset-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.chart;
+        const chart = charts[target];
+        chart.data.datasets.forEach(ds => {
+          ds.borderColor = colors[ds.label];
+          ds.backgroundColor = colors[ds.label];
+          ds.borderWidth = 2;
+        });
+        chart.update();
+      });
+    });
+
+    createLegend("legendWorld", dataWorld, chartWorld);
+    createLegend("legendEurope", dataEurope, chartEurope);
+    createLegend("legendFrance", dataFrance, chartFrance);
+
+    /* ==== SECTION LEURS HISTOIRES ==== */
+    const reseaux = [
+      {
+        nom: "Facebook",
+        icon: "icon/facebook.svg",
+        pdg: "Mark Zuckerberg",
+        image: "pdg/facebook.jpeg",
+        description: "Facebook a été fondé en 2004 par Mark Zuckerberg. Ce réseau social a révolutionné la manière de communiquer et de partager des informations à l’échelle mondiale."
+      },
+      {
+        nom: "Instagram",
+        icon: "icon/instagram.svg",
+        pdg: "Adam Mosseri",
+        image: "pdg/instagram.webp",
+        description: "Instagram, lancé en 2010 et racheté par Facebook en 2012, est centré sur le partage de photos et de vidéos. Il est devenu un acteur majeur du marketing digital et de la culture visuelle."
+      },
+      {
+        nom: "WhatsApp",
+        icon: "icon/whatsapp.svg",
+        pdg: "Will Cathcart",
+        image: "pdg/whatsapp.jpg",
+        description: "Créé en 2009 et acquis par Facebook en 2014, WhatsApp est l'une des applications de messagerie les plus utilisées au monde, avec plus de 2 milliards d’utilisateurs actifs."
+      },
+      {
+        nom: "TikTok",
+        icon: "icon/tiktok.svg",
+        pdg: "Shou Zi Chew",
+        image: "pdg/tiktok.jpg",
+        description: "TikTok, lancé en 2016 par ByteDance, a explosé grâce à ses vidéos courtes et virales, devenant un phénomène mondial et transformant la manière dont les jeunes consomment le contenu."
+      },
+      {
+        nom: "YouTube",
+        icon: "icon/youtube.svg",
+        pdg: "Neal Mohan",
+        image: "pdg/youtube.jpeg",
+        description: "YouTube, fondé en 2005, est devenu la plus grande plateforme de vidéos au monde, appartenant à Google depuis 2006."
+      },
+      {
+        nom: "X (Twitter)",
+        icon: "icon/x.svg",
+        pdg: "Elon Musk",
+        image: "pdg/x.jpg",
+        description: "Anciennement Twitter, racheté par Elon Musk en 2022, X s’oriente vers une plateforme de communication universelle combinant actualités, vidéo et paiements."
+      }
+    ];
+
+    const carousel = document.getElementById("carousel");
+    const nomElem = document.getElementById("reseau-nom");
+    const descElem = document.getElementById("reseau-description");
+    const imageElem = document.getElementById("reseau-image");
+    const pdgElem = document.getElementById("reseau-pdg");
+
+    let index = 0;
+
+    function renderCarousel() {
+      carousel.innerHTML = "";
+      reseaux.forEach((r, i) => {
+        const img = document.createElement("img");
+        img.src = r.icon;
+        img.alt = r.nom;
+        img.classList.add(i === index ? "active" : "inactive");
+        carousel.appendChild(img);
+      });
+      nomElem.textContent = reseaux[index].nom;
+      descElem.textContent = reseaux[index].description;
+      imageElem.src = reseaux[index].image;
+      pdgElem.textContent = reseaux[index].pdg;
+    }
+
+    function next() {
+      index = (index + 1) % reseaux.length;
+      renderCarousel();
+    }
+
+    function prev() {
+      index = (index - 1 + reseaux.length) % reseaux.length;
+      renderCarousel();
+    }
+
+    document.getElementById("next").addEventListener("click", next);
+    document.getElementById("prev").addEventListener("click", prev);
+
+    renderCarousel();
   </script>
 </body>
 </html>
-
