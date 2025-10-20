@@ -273,6 +273,45 @@
       font-size: 1rem;
       line-height: 1.5;
     }
+
+    /* ==== SECTION DANGERS ==== */
+.temps-ecran {
+  margin-top: 6rem;
+  text-align: center;
+  color: #fff;
+}
+
+.temps-ecran h1 {
+  font-family: "Bitcount Prop Single Ink", system-ui;
+  font-size: 2rem;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+  margin-bottom: 2rem;
+}
+
+.danger-card {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  line-height: 1.8;
+  font-size: 1.05rem;
+  text-align: justify;
+}
+
+.danger-card p {
+  margin-bottom: 1.2rem;
+  color: #f5f5f5;
+}
+
+.danger-card strong {
+  color: #7fc8ff;
+  font-weight: 600;
+}
+
   </style>
 </head>
 
@@ -344,13 +383,23 @@
   <!-- SECTION TEMPS D'ECRAN -->
 
   <section class="temps-ecran">
-    <h1>Les dangers des réseaux sociaux</h1>
+  <h1>Les dangers des réseaux sociaux</h1>
 
-    <p> Les réseaux sociaux occupent une grande place dans notre société comme le montrent les graphiques plus haut, il est important donc de savoir comment prendre des distances face à quelque chose d'aussi présent dans nos vies. En effet, l'utilisation intensive de ces derniers n'est pas sans danger : addiction, cyberharcèlement, diffamation et développement de la solitude, tous ces risques sont souvent négligés alors que nous entrons dans une ère où la moitié des enfants très jeunes sont déjà habitués à l'utilisation des réseaux sociaux. Cela est évidemment catastrophique puisque exposer un enfant à de tels dangers aura un impact permanent sur son éducation et la personne qu'il sera en grandissant.</p>
+  <div class="danger-card">
+    <p>
+      Les réseaux sociaux occupent aujourd’hui une place immense dans nos vies, comme le montrent les graphiques ci-dessus.  
+      Pourtant, leur usage excessif peut devenir un véritable piège.  
+      <strong>Addiction, cyberharcèlement, diffamation, perte d’estime de soi</strong> ou encore <strong>isolement social</strong> :  
+      ces risques sont bien réels mais souvent sous-estimés.
+    </p>
+    <p>
+      De plus en plus d’enfants y sont exposés très tôt, grandissant dans un monde où l’image et la validation numérique priment sur la réalité.  
+      Apprendre à <strong>prendre du recul</strong>, à <strong>se déconnecter</strong> et à <strong>retrouver du temps pour soi</strong>  
+      est devenu essentiel pour préserver sa santé mentale.
+    </p>
+  </div>
+</section>
 
-
-
-  </section>
 
   <script>
     const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
@@ -480,39 +529,39 @@
         description: "Facebook a été fondé en 2004 par Mark Zuckerberg et quelques camarades de l’université Harvard. À l’origine, le site s’appelait “TheFacebook” et servait uniquement aux étudiants de Harvard pour se connecter entre eux. Son succès fulgurant a rapidement poussé Zuckerberg à ouvrir la plateforme à d’autres universités, puis au grand public. En quelques années, Facebook est devenu le réseau social le plus populaire au monde, révolutionnant la manière dont les gens communiquent, partagent et s’informent. Rachetant Instagram et WhatsApp, l’entreprise a étendu son influence bien au-delà de son site d’origine. Aujourd’hui, sous le nom de Meta, elle continue de façonner le futur du numérique à travers la réalité virtuelle et le métavers."
       },
       {
-        nom: "Instagram",
+        nom: "Instagram, le règne de l’image",
         icon: "icon/instagram.svg",
         pdg: "Adam Mosseri",
         image: "pdg/instagram.webp",
-        description: "Instagram, lancé en 2010 et racheté par Facebook en 2012, est centré sur le partage de photos et de vidéos. Il est devenu un acteur majeur du marketing digital et de la culture visuelle."
+        description: "Créé en 2010 par Kevin Systrom et Mike Krieger, Instagram est d’abord une simple application de partage de photos carrées avec filtres rétro. Son succès fulgurant attire Facebook, qui le rachète en 2012 pour près d’un milliard de dollars. Au fil des années, Instagram devient un géant de la communication visuelle : stories, reels, influenceurs, marques, tout s’y mêle. Aujourd’hui, c’est un espace où l’image façonne l’identité et où chacun cherche à capturer l’instant parfait."
       },
       {
-        nom: "WhatsApp",
+        nom: "WhatsApp, la messagerie devenue indispensable",
         icon: "icon/whatsapp.svg",
         pdg: "Will Cathcart",
         image: "pdg/whatsapp.jpg",
-        description: "Créé en 2009 et acquis par Facebook en 2014, WhatsApp est l'une des applications de messagerie les plus utilisées au monde, avec plus de 2 milliards d’utilisateurs actifs."
+        description: "Créée en 2009 par Jan Koum et Brian Acton, deux anciens ingénieurs de Yahoo!, WhatsApp avait un objectif simple : permettre à chacun d’envoyer des messages gratuits partout dans le monde, via Internet. L’application se distingue rapidement par sa simplicité d’utilisation et son chiffrement des conversations, garantissant la confidentialité des échanges. En 2014, Facebook rachète WhatsApp pour plus de 19 milliards de dollars, faisant de l’application l’un des services de messagerie les plus utilisés au monde. Aujourd’hui, avec ses appels vocaux, vidéos, groupes et statuts, WhatsApp relie plus de 2 milliards d’utilisateurs chaque jour."
       },
       {
-        nom: "TikTok",
+        nom: "TikTok, la révolution des vidéos courtes",
         icon: "icon/tiktok.svg",
         pdg: "Shou Zi Chew",
         image: "pdg/tiktok.jpg",
-        description: "TikTok, lancé en 2016 par ByteDance, a explosé grâce à ses vidéos courtes et virales, devenant un phénomène mondial et transformant la manière dont les jeunes consomment le contenu."
+        description: "Né en 2016 en Chine sous le nom Douyin, TikTok est lancé à l’international en 2018 après le rachat de Musical.ly par la société ByteDance. La plateforme permet de créer et partager de courtes vidéos musicales et humoristiques, propulsées par un algorithme ultra-performant. TikTok est vite devenu un phénomène mondial, révélant une nouvelle génération de créateurs, de danses virales et de tendances culturelles globales."
       },
       {
-        nom: "YouTube",
+        nom: "YouTube, La révolution de la vidéo en ligne",
         icon: "icon/youtube.svg",
         pdg: "Neal Mohan",
         image: "pdg/youtube.jpeg",
-        description: "YouTube, fondé en 2005, est devenu la plus grande plateforme de vidéos au monde, appartenant à Google depuis 2006."
+        description: "Créé en 2005 par Chad Hurley, Steve Chen et Jawed Karim, YouTube est né de l’envie de partager facilement des vidéos personnelles sur Internet. Rapidement, la plateforme devient un véritable fenêtre sur le monde, permettant à chacun de publier, visionner et commenter des contenus variés : tutoriels, clips, vlogs, et bien plus. En 2006, Google rachète YouTube pour 1,65 milliard de dollars, propulsant la plateforme vers une croissance exponentielle. Aujourd’hui, YouTube est la plus grande plateforme vidéo au monde, incontournable pour le divertissement, l’information et l’éducation, avec des milliards de vidéos visionnées chaque jour."
       },
       {
-        nom: "X (Twitter)",
+        nom: "X, des tweets à l’influence mondiale",
         icon: "icon/x.svg",
         pdg: "Elon Musk",
         image: "pdg/x.jpg",
-        description: "Anciennement Twitter, racheté par Elon Musk en 2022, X s’oriente vers une plateforme de communication universelle combinant actualités, vidéo et paiements."
+        description: "Créé en 2006 par Jack Dorsey, Biz Stone et Evan Williams, Twitter est né de l’idée d’envoyer de courts messages à ses amis : des tweets limités à 140 caractères. Le réseau devient rapidement un outil d’information instantanée, utilisé par les journalistes, politiciens et célébrités. En 2022, il est racheté par Elon Musk et renommé X, marquant un tournant majeur dans son identité et son ambition : passer d’un simple réseau social à une plateforme tout-en-un."
       }
     ];
 
