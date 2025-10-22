@@ -9,310 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #ffffff;
-      margin: 0;
-      padding: 2rem;
-      background-image: url(bleu.jpg);
-      background-size: cover;
-      background-position: center;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: #fff;
-      text-shadow: 0 2px 6px rgba(255, 255, 255, 0.233);
-      font-family: "Bitcount Prop Single Ink", system-ui;
-    }
-
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      font-weight: 600;
-      color: #fff;
-      text-align: center;
-      text-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
-      font-family: "Bitcount Prop Single Ink", system-ui;
-    }
-
-    .temps-ecran p {
-
-      max-width: 1500px;
-      text-align: left;
-      
-    }
-
-    .charts-container {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    /* effet glassmorphism */ 
-    .chart-card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      padding: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: stretch;
-      flex-wrap: wrap;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .chart-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .chart-wrapper {
-      flex: 1;
-      min-width: 320px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    canvas {
-      width: 100%;
-      max-width: 800px;
-      height: 400px;
-    }
-
-    .legend {
-      margin-top: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem 1.2rem;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(144, 144, 144, 0.323);
-    }
-
-    .legend-item img {
-      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0));
-      transition: transform 0.2s ease;
-    }
-
-    .legend-item:hover img {
-      transform: scale(1.15);
-    }
-
-    .legend-item:hover {
-      opacity: 0.7;
-    }
-
-    .info-bubble {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 1rem 1.2rem;
-      margin-left: 2rem;
-      max-width: 260px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #fff;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0);
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-    }
-
-    .reset-btn {
-      display: block;
-      margin: 1rem auto 0;
-      padding: 0.6rem 1.2rem;
-      background-color: rgba(24, 119, 242, 0.8);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    .reset-btn:hover {
-      background-color: rgba(24, 119, 242, 1);
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 900px) {
-      .chart-card {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .info-bubble {
-        margin-left: 0;
-        margin-top: 1.5rem;
-        max-width: 90%;
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.4);
-        backdrop-filter: blur(6px);
-        z-index: -1;
-      }
-    }
-
-    /* ==== SECTION LEURS HISTOIRES ==== */
-    .histoires-section {
-      margin-top: 5rem;
-      text-align: center;
-    }
-
-    .carousel-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-      position: relative;
-    }
-
-    .carousel {
-      display: flex;
-      gap: 2rem;
-      overflow: hidden;
-      width: 60%;
-      justify-content: center;
-    }
-
-    .carousel img {
-      width: 70px;
-      height: 70px;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3));
-      
-    }
-
-    .carousel img.active {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    .carousel img.inactive {
-      transform: scale(0.7);
-      opacity: 0.5;
-    }
-
-    .arrow {
-      font-size: 2rem;
-      background: rgba(255,255,255,0.15);
-      border: none;
-      color: white;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .arrow:hover {
-      background: rgba(255,255,255,0.3);
-      transform: scale(1.1);
-    }
-
-    .reseau-info {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .reseau-info .texte {
-      max-width: 500px;
-      text-align: left;
-    }
-
-    .reseau-info .pdg {
-      text-align: center;
-    }
-
-    .reseau-info img {
-      width: 150px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .reseau-info h2 {
-      text-align: left;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-
-    .reseau-info p {
-      color: #fff;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    /* ==== SECTION DANGERS ==== */
-.temps-ecran {
-  margin-top: 6rem;
-  text-align: center;
-  color: #fff;
-}
-
-.temps-ecran h1 {
-  font-family: "Bitcount Prop Single Ink", system-ui;
-  font-size: 2rem;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
-  margin-bottom: 2rem;
-}
-
-.danger-card {
-  max-width: 900px;
-  margin: auto;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  line-height: 1.8;
-  font-size: 1.05rem;
-  text-align: justify;
-}
-
-.danger-card p {
-  margin-bottom: 1.2rem;
-  color: #f5f5f5;
-}
-
-.danger-card strong {
-  color: #7fc8ff;
-  font-weight: 600;
-}
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -380,27 +77,57 @@
     </div>
   </section>
 
-  <!-- SECTION TEMPS D'ECRAN -->
+  <!-- ==== SECTION IMPACT & PRÉVENTION ==== -->
+  <section class="impact-section">
+    <h1>Les impacts des réseaux sociaux</h1>
 
-  <section class="temps-ecran">
-  <h1>Les dangers des réseaux sociaux</h1>
+    <div class="impact-intro">
+      <p>
+        Les réseaux sociaux occupent aujourd’hui une place immense dans nos vies.  
+        Pourtant, leur usage excessif peut devenir un véritable piège :  
+        <strong>addiction, perte d’attention, isolement social, cyberharcèlement</strong> ou encore <strong>trouble du sommeil</strong>.  
+        Ces effets sont particulièrement visibles chez les plus jeunes générations, exposées très tôt aux écrans.
+      </p>
+      <p>
+        Comprendre cette évolution aide à mieux réguler notre utilisation quotidienne.  
+        Découvre ci-dessous comment le <strong>temps d’écran</strong> a évolué selon les tranches d’âge au fil des 10 dernières années ⬇️
+      </p>
+    </div>
 
-  <div class="danger-card">
-    <p>
-      Les réseaux sociaux occupent aujourd’hui une place immense dans nos vies, comme le montrent les graphiques ci-dessus.  
-      Pourtant, leur usage excessif peut devenir un véritable piège.  
-      <strong>Addiction, cyberharcèlement, diffamation, perte d’estime de soi</strong> ou encore <strong>isolement social</strong> :  
-      ces risques sont bien réels mais souvent sous-estimés.
-    </p>
-    <p>
-      De plus en plus d’enfants y sont exposés très tôt, grandissant dans un monde où l’image et la validation numérique priment sur la réalité.  
-      Apprendre à <strong>prendre du recul</strong>, à <strong>se déconnecter</strong> et à <strong>retrouver du temps pour soi</strong>  
-      est devenu essentiel pour préserver sa santé mentale.
-    </p>
-  </div>
-</section>
+    <div class="comparatif-container">
+      <h2>Prévention – Temps d’écran moyen</h2>
 
+      <p class="intro">Compare le temps d’écran selon la tranche d’âge et observe l’évolution des 10 dernières années.</p>
 
+      <div class="select-age">
+        <label for="ageSelect">Choisis une tranche d’âge :</label>
+        <select id="ageSelect">
+          <option value="0-3 ans">0–3 ans</option>
+          <option value="3-12 ans">3–12 ans</option>
+          <option value="13-17 ans">13–17 ans</option>
+          <option value="+18 ans">+18 ans</option>
+        </select>
+      </div>
+
+      <div class="comparatif-card">
+        <div class="colonne">
+          <h3>Il y a 10 ans</h3>
+          <p id="tempsAvant" class="temps">–</p>
+        </div>
+        <div class="colonne">
+          <h3>Aujourd’hui</h3>
+          <p id="tempsMaintenant" class="temps">–</p>
+        </div>
+      </div>
+
+      <div class="difference">
+        <p id="diffText"></p>
+        <p id="ageMessage" style="font-size:0.95rem;color:#ccc;margin-top:0.5rem;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SCRIPT PRINCIPAL ==== -->
   <script>
     const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
     const dataWorld = {
@@ -475,7 +202,6 @@
     const chartWorld = createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
     const chartEurope = createChart(document.getElementById("chartEurope"), dataEurope, "millions");
     const chartFrance = createChart(document.getElementById("chartFrance"), dataFrance, "millions");
-
     const charts = { world: chartWorld, europe: chartEurope, france: chartFrance };
 
     function createLegend(containerId, data, chart) {
@@ -521,48 +247,12 @@
 
     /* ==== SECTION LEURS HISTOIRES ==== */
     const reseaux = [
-      {
-        nom: "Facebook, du campus à la Terre entière",
-        icon: "icon/facebook.svg",
-        pdg: "Mark Zuckerberg",
-        image: "pdg/facebook.jpeg",
-        description: "Facebook a été fondé en 2004 par Mark Zuckerberg et quelques camarades de l’université Harvard. À l’origine, le site s’appelait “TheFacebook” et servait uniquement aux étudiants de Harvard pour se connecter entre eux. Son succès fulgurant a rapidement poussé Zuckerberg à ouvrir la plateforme à d’autres universités, puis au grand public. En quelques années, Facebook est devenu le réseau social le plus populaire au monde, révolutionnant la manière dont les gens communiquent, partagent et s’informent. Rachetant Instagram et WhatsApp, l’entreprise a étendu son influence bien au-delà de son site d’origine. Aujourd’hui, sous le nom de Meta, elle continue de façonner le futur du numérique à travers la réalité virtuelle et le métavers."
-      },
-      {
-        nom: "Instagram, le règne de l’image",
-        icon: "icon/instagram.svg",
-        pdg: "Adam Mosseri",
-        image: "pdg/instagram.webp",
-        description: "Créé en 2010 par Kevin Systrom et Mike Krieger, Instagram est d’abord une simple application de partage de photos carrées avec filtres rétro. Son succès fulgurant attire Facebook, qui le rachète en 2012 pour près d’un milliard de dollars. Au fil des années, Instagram devient un géant de la communication visuelle : stories, reels, influenceurs, marques, tout s’y mêle. Aujourd’hui, c’est un espace où l’image façonne l’identité et où chacun cherche à capturer l’instant parfait."
-      },
-      {
-        nom: "WhatsApp, la messagerie devenue indispensable",
-        icon: "icon/whatsapp.svg",
-        pdg: "Will Cathcart",
-        image: "pdg/whatsapp.jpg",
-        description: "Créée en 2009 par Jan Koum et Brian Acton, deux anciens ingénieurs de Yahoo!, WhatsApp avait un objectif simple : permettre à chacun d’envoyer des messages gratuits partout dans le monde, via Internet. L’application se distingue rapidement par sa simplicité d’utilisation et son chiffrement des conversations, garantissant la confidentialité des échanges. En 2014, Facebook rachète WhatsApp pour plus de 19 milliards de dollars, faisant de l’application l’un des services de messagerie les plus utilisés au monde. Aujourd’hui, avec ses appels vocaux, vidéos, groupes et statuts, WhatsApp relie plus de 2 milliards d’utilisateurs chaque jour."
-      },
-      {
-        nom: "TikTok, la révolution des vidéos courtes",
-        icon: "icon/tiktok.svg",
-        pdg: "Shou Zi Chew",
-        image: "pdg/tiktok.jpg",
-        description: "Né en 2016 en Chine sous le nom Douyin, TikTok est lancé à l’international en 2018 après le rachat de Musical.ly par la société ByteDance. La plateforme permet de créer et partager de courtes vidéos musicales et humoristiques, propulsées par un algorithme ultra-performant. TikTok est vite devenu un phénomène mondial, révélant une nouvelle génération de créateurs, de danses virales et de tendances culturelles globales."
-      },
-      {
-        nom: "YouTube, La révolution de la vidéo en ligne",
-        icon: "icon/youtube.svg",
-        pdg: "Neal Mohan",
-        image: "pdg/youtube.jpeg",
-        description: "Créé en 2005 par Chad Hurley, Steve Chen et Jawed Karim, YouTube est né de l’envie de partager facilement des vidéos personnelles sur Internet. Rapidement, la plateforme devient un véritable fenêtre sur le monde, permettant à chacun de publier, visionner et commenter des contenus variés : tutoriels, clips, vlogs, et bien plus. En 2006, Google rachète YouTube pour 1,65 milliard de dollars, propulsant la plateforme vers une croissance exponentielle. Aujourd’hui, YouTube est la plus grande plateforme vidéo au monde, incontournable pour le divertissement, l’information et l’éducation, avec des milliards de vidéos visionnées chaque jour."
-      },
-      {
-        nom: "X, des tweets à l’influence mondiale",
-        icon: "icon/x.svg",
-        pdg: "Elon Musk",
-        image: "pdg/x.jpg",
-        description: "Créé en 2006 par Jack Dorsey, Biz Stone et Evan Williams, Twitter est né de l’idée d’envoyer de courts messages à ses amis : des tweets limités à 140 caractères. Le réseau devient rapidement un outil d’information instantanée, utilisé par les journalistes, politiciens et célébrités. En 2022, il est racheté par Elon Musk et renommé X, marquant un tournant majeur dans son identité et son ambition : passer d’un simple réseau social à une plateforme tout-en-un."
-      }
+      { nom: "Facebook, du campus à la Terre entière", icon: "icon/facebook.svg", pdg: "Mark Zuckerberg", image: "pdg/facebook.jpeg", description: "Facebook a été fondé en 2004..." },
+      { nom: "Instagram, le règne de l’image", icon: "icon/instagram.svg", pdg: "Adam Mosseri", image: "pdg/instagram.webp", description: "Créé en 2010..." },
+      { nom: "WhatsApp, la messagerie devenue indispensable", icon: "icon/whatsapp.svg", pdg: "Will Cathcart", image: "pdg/whatsapp.jpg", description: "Créée en 2009..." },
+      { nom: "TikTok, la révolution des vidéos courtes", icon: "icon/tiktok.svg", pdg: "Shou Zi Chew", image: "pdg/tiktok.jpg", description: "Né en 2016..." },
+      { nom: "YouTube, la révolution de la vidéo", icon: "icon/youtube.svg", pdg: "Neal Mohan", image: "pdg/youtube.jpeg", description: "Créé en 2005..." },
+      { nom: "X, des tweets à l’influence mondiale", icon: "icon/x.svg", pdg: "Elon Musk", image: "pdg/x.jpg", description: "Créé en 2006..." }
     ];
 
     const carousel = document.getElementById("carousel");
@@ -570,7 +260,6 @@
     const descElem = document.getElementById("reseau-description");
     const imageElem = document.getElementById("reseau-image");
     const pdgElem = document.getElementById("reseau-pdg");
-
     let index = 0;
 
     function renderCarousel() {
@@ -581,6 +270,9 @@
         img.alt = r.nom;
         img.classList.add(i === index ? "active" : "inactive");
         carousel.appendChild(img);
+        img.addEventListener("click", function () {
+          index = i; renderCarousel();
+        });
       });
       nomElem.textContent = reseaux[index].nom;
       descElem.textContent = reseaux[index].description;
@@ -588,21 +280,88 @@
       pdgElem.textContent = reseaux[index].pdg;
     }
 
-    function next() {
-      index = (index + 1) % reseaux.length;
-      renderCarousel();
-    }
-
-    function prev() {
-      index = (index - 1 + reseaux.length) % reseaux.length;
-      renderCarousel();
-    }
+    function next() { index = (index + 1) % reseaux.length; renderCarousel(); }
+    function prev() { index = (index - 1 + reseaux.length) % reseaux.length; renderCarousel(); }
 
     document.getElementById("next").addEventListener("click", next);
     document.getElementById("prev").addEventListener("click", prev);
 
     renderCarousel();
   </script>
+
+  <!-- ==== OBSERVER ==== -->
+  <script>
+  window.addEventListener("load", () => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".chart-card, .histoires-section, .impact-section").forEach(el => {
+      if (el) observer.observe(el);
+    });
+  });
+  </script>
+
+  <!-- ==== SCRIPT PRÉVENTION ==== -->
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ==== Données temps d’écran ====
+  const tempsEcran = {
+    "0-3 ans": { avant: 1, maintenant: 1.5 },
+    "3-12 ans": { avant: 2, maintenant: 3 },
+    "13-17 ans": { avant: 3, maintenant: 5 },
+    "+18 ans": { avant: 3, maintenant: 4 }
+  };
+
+  const ageSelect = document.getElementById("ageSelect");
+  const tempsAvant = document.getElementById("tempsAvant");
+  const tempsMaintenant = document.getElementById("tempsMaintenant");
+  const diffText = document.getElementById("diffText");
+  const ageMessage = document.getElementById("ageMessage");
+
+  // ==== Fonction d'animation numérique ====
+  function animateValue(element, start, end, duration) {
+    const range = end - start;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = start + range * progress;
+      element.textContent = value.toFixed(1) + "h";
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // ==== Fonction principale ====
+  function updateTempsEcran(age) {
+    const data = tempsEcran[age];
+    if (!data) return;
+
+    const prevAvant = parseFloat(tempsAvant.textContent) || 0;
+    const prevMaintenant = parseFloat(tempsMaintenant.textContent) || 0;
+
+    animateValue(tempsAvant, prevAvant, data.avant, 800);
+    animateValue(tempsMaintenant, prevMaintenant, data.maintenant, 800);
+
+    const diff = data.maintenant - data.avant;
+    const signe = diff > 0 ? "+" : "";
+    diffText.textContent = `${signe}${diff.toFixed(1)}h par jour en 10 ans 📈`;
+    ageMessage.textContent = `Les ${age} passent en moyenne ${data.maintenant}h par jour devant les écrans.`;
+  }
+
+  // ==== Événement changement ====
+  ageSelect.addEventListener("change", e => updateTempsEcran(e.target.value));
+
+  // ==== Initialisation par défaut ====
+  updateTempsEcran(ageSelect.value);
+});
+</script>
+
 </body>
 </html>
-
