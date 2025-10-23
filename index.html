@@ -102,11 +102,13 @@
       <div class="select-age">
         <label for="ageSelect">Choisis une tranche d’âge :</label>
         <select id="ageSelect">
-          <option value="0-3 ans">0–3 ans</option>
-          <option value="3-12 ans">3–12 ans</option>
-          <option value="13-17 ans">13–17 ans</option>
-          <option value="+18 ans">+18 ans</option>
+            <option value="0-3 ans">0–3 ans</option>
+            <option value="3-12 ans">3–12 ans</option>
+            <option value="13-17 ans">13–17 ans</option>
+            <option value="18-50 ans">18–50 ans</option>
+            <option value="+50 ans">+50 ans</option>
         </select>
+
       </div>
 
       <div class="comparatif-card">
@@ -320,14 +322,15 @@
   </script>
 
   <!-- ==== SCRIPT PRÉVENTION ==== -->
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-  // ==== Données temps d’écran ====
+  // ==== Données temps d’écran (en heures décimales) ====
   const tempsEcran = {
     "0-3 ans": { avant: 1, maintenant: 1.5 },
     "3-12 ans": { avant: 2, maintenant: 3 },
-    "13-17 ans": { avant: 3, maintenant: 5 },
-    "+18 ans": { avant: 3, maintenant: 4 }
+    "13-17 ans": { avant: 3.5, maintenant: 5 },
+    "18-50 ans": { avant: 3, maintenant: 4 },
+    "+50 ans": { avant: 2.5, maintenant: 3.5 }
   };
 
   const ageSelect = document.getElementById("ageSelect");
@@ -335,6 +338,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const tempsMaintenant = document.getElementById("tempsMaintenant");
   const diffText = document.getElementById("diffText");
   const ageMessage = document.getElementById("ageMessage");
+
+  // ==== Fonction de formatage en "XhXX" ====
+  function formatHeure(nombre) {
+    const heures = Math.floor(nombre);
+    const minutes = Math.round((nombre - heures) * 60);
+    return minutes === 0 ? `${heures}h` : `${heures}h${minutes.toString().padStart(2, "0")}`;
+  }
 
   // ==== Fonction d'animation numérique ====
   function animateValue(element, start, end, duration) {
@@ -344,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function update(currentTime) {
       const progress = Math.min((currentTime - startTime) / duration, 1);
       const value = start + range * progress;
-      element.textContent = value.toFixed(1) + "h";
+      element.textContent = formatHeure(value.toFixed(1));
       if (progress < 1) requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
@@ -364,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const diff = data.maintenant - data.avant;
     const signe = diff > 0 ? "+" : "";
     diffText.textContent = `${signe}${diff.toFixed(1)}h par jour en 10 ans 📈`;
-    ageMessage.textContent = `Les ${age} passent en moyenne ${data.maintenant}h par jour devant les écrans.`;
+    ageMessage.textContent = `Les ${age} passent en moyenne ${formatHeure(data.maintenant)} par jour devant les écrans.`;
   }
 
   // ==== Événement changement ====
@@ -374,6 +384,3 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTempsEcran(ageSelect.value);
 });
 </script>
-
-</body>
-</html>
