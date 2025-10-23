@@ -13,6 +13,10 @@
 </head>
 
 <body>
+  <!-- <video autoplay muted loop playsinline id="earthVideo">
+  <source src="video/terre.mp4" type="video/mp4"> -->
+</video>
+  <div id="earthContainer"></div>
   <h1 class="title">Évolution des réseaux sociaux (2015–2025)</h1>
 
   <div class="charts-container">
@@ -384,3 +388,67 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTempsEcran(ageSelect.value);
 });
 </script>
+
+<!-- ==== SCRIPT PLANÈTE & TRANSITION ==== -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const earthEl = document.getElementById("earthHost");
+    const franceMap = document.getElementById("franceMap");
+    const franceSection = document.getElementById("franceSection");
+    let vanta = null;
+
+    function startGlobe() {
+      if (vanta) return;
+      if (!window.VANTA || !window.THREE) return;
+      vanta = VANTA.GLOBE({
+        el: earthEl,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x153ab2,
+        color2: 0x2a1780,
+        backgroundColor: 0x00000f,
+      });
+    }
+
+    function stopGlobe() {
+      if (vanta && typeof vanta.destroy === "function") {
+        vanta.destroy();
+        vanta = null;
+      }
+    }
+
+    startGlobe();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const inView = entry.isIntersecting && entry.intersectionRatio > 0.45;
+        if (inView) {
+          franceMap.classList.add("visible");
+          stopGlobe();
+        } else {
+          franceMap.classList.remove("visible");
+          startGlobe();
+        }
+      });
+    }, { threshold: [0, 0.45, 1] });
+
+    if (franceSection) io.observe(franceSection);
+
+    window.addEventListener("resize", () => {
+      if (!franceMap.classList.contains("visible")) {
+        stopGlobe();
+        startGlobe();
+      }
+    });
+  });
+  </script>
+
+  
+
+</body>
+</html>
