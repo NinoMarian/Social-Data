@@ -504,8 +504,11 @@ body::before {
   font-size: 1.6rem;
   margin-top: 15px;
   color: rgba(255,255,255,0.9);
-  opacity: 0;
-  animation: appearType 2.5s steps(40) 1s forwards;
+  overflow: hidden;             /* masque le texte pendant l’animation */
+  border-right: 2px solid #fff; /* curseur clignotant */
+  white-space: nowrap;          /* empêche le retour à la ligne */
+  width: 0;                     /* point de départ */
+  animation: typing 4s steps(50, end) 1s forwards, blink 0.75s step-end infinite 4s;
 }
 
 .overlay p {
