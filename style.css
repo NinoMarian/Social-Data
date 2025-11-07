@@ -451,9 +451,6 @@ body::before {
 }
 
 
-
-
-
 #intro {
   position: relative;
   height: 100vh;
@@ -508,10 +505,10 @@ body::before {
   font-size: 1.6rem;
   margin-top: 15px;
   color: rgba(255,255,255,0.9);
-  overflow: hidden;             /* cache le texte */
-  border-right: 2px solid #fff; /* curseur */
-  white-space: nowrap;          /* pas de retour ligne */
-  width: 0;                     /* départ vide */
+  overflow: hidden;             
+  border-right: 2px solid #fff; 
+  white-space: nowrap;          
+  width: 0;                     
   animation: typing 4s steps(45, end) 1.2s forwards, blink 0.75s step-end infinite 5s;
 }
 
@@ -541,7 +538,7 @@ body::before {
 
 @keyframes typing {
   from { width: 0; }
-  to { width: 45ch; } /* adapte à la longueur de ta phrase */
+  to { width: 45ch; } 
 }
 
 @keyframes blink {
