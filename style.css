@@ -1,0 +1,572 @@
+body {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* couvre toujours toute la fenêtre */
+  background: linear-gradient(-45deg, #0d102f, #1b1e4b, #2a1780, #003d99);
+  background-size: 300% 300%;
+  animation: gradientMove 18s ease-in-out infinite;
+  background-attachment: fixed; /* le fond reste bien en place au scroll */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #0d102f; /* sécurité si le gradient bug */
+  scroll-behavior: smooth;
+}
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+/* Animation subtile du fond */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+section, .charts-container {
+  scroll-margin-top: 100px;
+}
+
+h1, h2 {
+  font-family: "Bitcount Prop Single Ink", system-ui;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin: 3rem 0 2rem;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* ======= GRAPHIQUES ======= */
+.charts-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.chart-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 2rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.chart-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+}
+
+.chart-wrapper {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+}
+
+.legend {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 1.2rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #fff;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.legend-item:hover {
+  opacity: 0.7;
+  transform: scale(1.05);
+}
+
+.info-bubble {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 1rem 1.3rem;
+  max-width: 280px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #fff;
+  align-self: center;
+}
+
+/* ======= BOUTON RESET ======= */
+.reset-btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  background-color: rgba(24, 119, 242, 0.8);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.reset-btn:hover {
+  background-color: rgba(24, 119, 242, 1);
+  transform: scale(1.05);
+}
+
+/* ======= SECTION LEURS HISTOIRES ======= */
+.histoires-section {
+  margin-top: 6rem;
+  padding: 2rem 1rem 5rem;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.histoires-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: nowrap;
+}
+
+.carousel {
+  display: flex;
+  gap: 2rem;
+  overflow: hidden;
+  width: 100%;
+  max-width: 700px;
+  justify-content: center;
+}
+
+.carousel img {
+  width: clamp(45px, 8vw, 70px);
+  height: clamp(45px, 8vw, 70px);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3));
+  object-fit: contain;
+}
+
+.carousel img.active {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.carousel img.inactive {
+  transform: scale(0.8);
+  opacity: 0.6;
+}
+
+.arrow {
+  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.reseau-info {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  transition: all 0.6s ease;
+}
+
+.reseau-info .texte {
+  max-width: 500px;
+  text-align: left;
+}
+
+.reseau-info .pdg {
+  text-align: center;
+}
+
+.reseau-info img {
+  width: 150px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+}
+
+.reseau-info img:hover {
+  transform: scale(1.05);
+}
+
+.reseau-info h2 {
+  text-align: left;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.reseau-info p {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ======= SECTION IMPACT & PRÉVENTION ======= */
+.impact-section {
+  margin: 8rem auto 6rem;
+  max-width: 950px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 3rem 2rem 4rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.impact-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.impact-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.impact-intro {
+  text-align: justify;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.impact-intro strong {
+  color: #7fc8ff;
+  font-weight: 600;
+}
+
+.comparatif-container {
+  margin-top: 2rem;
+}
+
+.comparatif-container h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #7fc8ff;
+}
+
+.select-age {
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.select-age label {
+  font-weight: 600;
+  color: #fff;
+}
+
+.select-age select {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-age select:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.comparatif-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.colonne {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  min-width: 180px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.colonne:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.colonne h3 {
+  margin-bottom: 0.8rem;
+  color: #7fc8ff;
+  font-size: 1.2rem;
+}
+
+.temps {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+.difference {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 900px) {
+  .chart-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-bubble {
+    margin: 1.5rem 0 0 0;
+    max-width: 90%;
+  }
+
+  .reseau-info {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .reseau-info .texte,
+  .reseau-info h2 {
+    text-align: center;
+  }
+
+  .reseau-info img {
+    width: 120px;
+  }
+}
+
+@media (max-width: 700px) {
+  .comparatif-card {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .colonne {
+    width: 80%;
+  }
+
+  .temps {
+    font-size: 2rem;
+  }
+}
+
+/* ==== VIDÉO FOND TERRE ==== */
+#earthVideo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.35) saturate(1.25) contrast(1.05);
+}
+
+/* Optionnel : effet spatial sombre par-dessus */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3), rgba(0,0,0,0.9));
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+#intro {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+  font-family: "Bitcount Prop Single Ink", sans-serif;
+}
+
+#bg-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45) saturate(1.1);
+  z-index: 0;
+}
+
+/* Dégradé léger par-dessus la vidéo */
+#intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+  z-index: 1;
+}
+
+.overlay {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.overlay h1 {
+  font-size: 6rem;
+  letter-spacing: 8px;
+  background: linear-gradient(90deg, #00d4ff, #ff00cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(255, 0, 204, 0.4));
+  animation: fadeInDown 1.5s ease-out;
+}
+
+/* --- EFFET MACHINE À ÉCRIRE --- */
+.overlay h2 {
+  font-size: 1.6rem;
+  margin-top: 15px;
+  color: rgba(255,255,255,0.9);
+  overflow: hidden;             
+  border-right: 2px solid #fff; 
+  white-space: nowrap;          
+  width: 0;                     
+  animation: typing 4s steps(45, end) 1.2s forwards, blink 0.75s step-end infinite 5s;
+}
+
+/* Phrase du dessous (fade classique) */
+.overlay p {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out 5s forwards;
+}
+
+/* Scroll-down */
+.scroll-down {
+  position: absolute;
+  bottom: 35px;
+  font-size: 1.8rem;
+  opacity: 0.7;
+  animation: bounce 2.5s infinite, fadeIn 3s ease-in-out 6s forwards;
+}
+
+.scroll-down a {
+
+  text-decoration: none;
+  color: white;
+
+}
+
+/* --- Animations --- */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 45ch; } 
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+ 
