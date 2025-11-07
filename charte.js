@@ -32,7 +32,7 @@ const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
       "YouTube": "#FF0000",
       "Instagram": "#E1306C",
       "WhatsApp": "#25D366",
-      "TikTok": "#000000",
+      "TikTok": "#FFD700",
       "X (Twitter)": "#1DA1F2"
     };
 
