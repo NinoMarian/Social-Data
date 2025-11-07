@@ -142,21 +142,18 @@ canvas {
 
 /* ======= BOUTON RESET ======= */
 .reset-btn {
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.6rem;
-  background-color: rgba(24, 119, 242, 0.8);
-  color: #fff;
+  background: none;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: background 0.3s, transform 0.2s;
+  padding: 0;
+  outline: none;
+  margin-top: 15px;
 }
 
 .reset-btn:hover {
-  background-color: rgba(24, 119, 242, 1);
-  transform: scale(1.05);
+  text-decoration: underline;
 }
 
 /* ======= SECTION LEURS HISTOIRES ======= */
@@ -570,3 +567,4 @@ body::before {
 }
 
  
+
