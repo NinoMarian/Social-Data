@@ -475,12 +475,12 @@ body::before {
   z-index: 0;
 }
 
-/* Dégradé noir transparent au-dessus de la vidéo */
+/* Dégradé léger par-dessus la vidéo */
 #intro::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+  background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
   z-index: 1;
 }
 
@@ -506,44 +506,34 @@ body::before {
   animation: fadeInDown 1.5s ease-out;
 }
 
-.overlay h2 div {
+/* --- EFFET MACHINE À ÉCRIRE --- */
+.overlay h2 {
   font-size: 1.6rem;
   margin-top: 15px;
-  /*color: rgba(255,255,255,0.9); */
-  overflow: hidden;             /* masque le texte pendant l’animation */
-  border-right: 2px solid #fff; /* curseur clignotant */
-  white-space: nowrap;          /* empêche le retour à la ligne */
-  width: 0;                     /* point de départ */
-  animation: typing 4s steps(50, end) 1s forwards, blink-caret .75s step-end infinite;;
+  color: rgba(255,255,255,0.9);
+  overflow: hidden;             
+  border-right: 2px solid #fff; 
+  white-space: nowrap;          
+  width: 0;                     
+  animation: typing 4s steps(45, end) 1.2s forwards, blink 0.75s step-end infinite 5s;
 }
 
-/* Effet de typing (https://css-tricks.com/snippets/css/typewriter-effect/) */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* Effet d'animation curseur (https://css-tricks.com/snippets/css/typewriter-effect/) */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: rgb(255, 255, 255); }
-}
-
+/* Phrase du dessous (fade classique) */
 .overlay p {
   margin-top: 20px;
   font-size: 1rem;
   color: rgba(255,255,255,0.75);
   opacity: 0;
-  animation: fadeIn 2s ease-in-out 2.5s forwards;
+  animation: fadeIn 2s ease-in-out 5s forwards;
 }
 
-/* Nouvelle flèche de scroll */
+/* Scroll-down */
 .scroll-down {
   position: absolute;
   bottom: 35px;
   font-size: 1.8rem;
   opacity: 0.7;
-  animation: bounce 2.5s infinite, fadeIn 3s ease-in-out 3s forwards;
+  animation: bounce 2.5s infinite, fadeIn 3s ease-in-out 6s forwards;
 }
 
 .scroll-down a {
@@ -559,9 +549,13 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes appearType {
-  from { width: 0; opacity: 1; }
-  to { width: 100%; opacity: 1; }
+@keyframes typing {
+  from { width: 0; }
+  to { width: 45ch; } 
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
 @keyframes fadeIn {
@@ -574,3 +568,5 @@ body::before {
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
 }
+
+ 
