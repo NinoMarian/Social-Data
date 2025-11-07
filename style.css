@@ -506,15 +506,27 @@ body::before {
   animation: fadeInDown 1.5s ease-out;
 }
 
-.overlay h2 {
+.overlay h2 div {
   font-size: 1.6rem;
   margin-top: 15px;
-  color: rgba(255,255,255,0.9);
+  /*color: rgba(255,255,255,0.9); */
   overflow: hidden;             /* masque le texte pendant l’animation */
   border-right: 2px solid #fff; /* curseur clignotant */
   white-space: nowrap;          /* empêche le retour à la ligne */
   width: 0;                     /* point de départ */
-  animation: typing 4s steps(50, end) 1s forwards, blink 0.75s step-end infinite 4s;
+  animation: typing 4s steps(50, end) 1s forwards, blink-caret .75s step-end infinite;;
+}
+
+/* Effet de typing (https://css-tricks.com/snippets/css/typewriter-effect/) */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Effet d'animation curseur (https://css-tricks.com/snippets/css/typewriter-effect/) */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(255, 255, 255); }
 }
 
 .overlay p {
@@ -562,5 +574,3 @@ body::before {
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
 }
-
- 
