@@ -142,18 +142,21 @@ canvas {
 
 /* ======= BOUTON RESET ======= */
 .reset-btn {
-  background: none;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  background-color: rgba(24, 119, 242, 0.8);
+  color: #fff;
   border: none;
-  color: white;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
-  padding: 0;
-  outline: none;
-  margin-top: 15px;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, transform 0.2s;
 }
 
 .reset-btn:hover {
-  text-decoration: underline;
+  background-color: rgba(24, 119, 242, 1);
+  transform: scale(1.05);
 }
 
 /* ======= SECTION LEURS HISTOIRES ======= */
@@ -432,6 +435,77 @@ canvas {
   }
 }
 
+/* ==== VIDÉO FOND TERRE ==== */
+#earthVideo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.35) saturate(1.25) contrast(1.05);
+}
+
+/* Optionnel : effet spatial sombre par-dessus */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.3), rgba(0,0,0,0.9));
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+#intro {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+  font-family: "Bitcount Prop Single Ink", sans-serif;
+}
+
+#bg-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45) saturate(1.1);
+  z-index: 0;
+}
+
+/* Dégradé léger par-dessus la vidéo */
+#intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+  z-index: 1;
+}
+
+.overlay {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.overlay h1 {
+  font-size: 6rem;
+  letter-spacing: 8px;
+  background: linear-gradient(90deg, #00d4ff, #ff00cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(255, 0, 204, 0.4));
+  animation: fadeInDown 1.5s ease-out;
+}
+
 /* --- EFFET MACHINE À ÉCRIRE --- */
 .overlay h2 {
   font-size: 1.6rem;
@@ -441,8 +515,7 @@ canvas {
   border-right: 2px solid #fff; 
   white-space: nowrap;          
   width: 0;                     
-  animation: typing 2.8s steps(45, end) 0.8s forwards, blink 0.75s step-end infinite 3.5s;
-
+  animation: typing 4s steps(45, end) 1.2s forwards, blink 0.75s step-end infinite 5s;
 }
 
 /* Phrase du dessous (fade classique) */
@@ -497,5 +570,3 @@ canvas {
 }
 
  
-
-
