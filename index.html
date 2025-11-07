@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classement des Réseaux Sociaux (2015–2025)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SECTION INTRO -->
+<section id="intro">
+  <video autoplay muted loop id="bg-video">
+    <source src="video/planet.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay">
+    <h1>DATA-MEDIA</h1>
+    <h2>10 ans de réseaux sociaux, d’influence et de connexion</h2>
+    <p>Explorez comment nos écrans ont façonné le monde entre 2015 et 2025.</p>
+    <div class="scroll-down"><a href="#earthContainer">↓</a></div>
+  </div>
+</section>
+
+
+
+
+  <!-- <video autoplay muted loop playsinline id="earthVideo">
+  <source src="video/terre.mp4" type="video/mp4"> -->
+</video>
+  <div id="earthContainer"></div>
+  <h1 class="title">Évolution des réseaux sociaux (2015–2025)</h1>
+
+  <div class="charts-container">
+    <!-- MONDE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>Niveau international</h2>
+        <canvas id="chartWorld"></canvas>
+        <div class="legend" id="legendWorld"></div>
+        <button class="reset-btn" data-chart="world">Réinitialiser</button>
+      </div>
+      <div class="info-bubble">
+        <p>Il est facile de remarquer l’étonnante et soudaine croissance de TikTok sur ce graphique. En effet, suite au rachat de Musically par ByteDance pour 800 millions de dollars, ce réseau a connu une expansion encore jamais vue.</p>
+      </div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>En Europe</h2>
+        <canvas id="chartEurope"></canvas>
+        <div class="legend" id="legendEurope"></div>
+        <button class="reset-btn" data-chart="europe">Réinitialiser</button>
+      </div>
+      <div class="info-bubble">
+        <p>En Europe aussi, TikTok a connu une progression spectaculaire dès 2019, surpassant plusieurs plateformes historiques grâce à son format court et viral.</p>
+      </div>
+    </div>
+
+    <!-- FRANCE -->
+    <div class="chart-card">
+      <div class="chart-wrapper">
+        <h2>En France</h2>
+        <canvas id="chartFrance"></canvas>
+        <div class="legend" id="legendFrance"></div>
+        <button class="reset-btn" data-chart="france">Réinitialiser</button>
+      </div>
+      <div class="info-bubble">
+        <p>En France, les jeunes de 16 à 25 ans représentent la majorité des utilisateurs de TikTok et Instagram, tandis que Facebook reste dominant auprès des plus de 30 ans.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION LEURS HISTOIRES -->
+  <section class="histoires-section">
+    <h1>Leurs histoires</h1>
+    <div class="carousel-container">
+      <button id="prev" class="arrow">❮</button>
+      <div id="carousel" class="carousel"></div>
+      <button id="next" class="arrow">❯</button>
+    </div>
+
+    <div class="reseau-info">
+      <div class="texte">
+        <h2 id="reseau-nom"></h2>
+        <p id="reseau-description"></p>
+      </div>
+      <div class="pdg">
+        <img id="reseau-image" src="" alt="PDG">
+        <p id="reseau-pdg"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION IMPACT & PRÉVENTION ==== -->
+  <section class="impact-section">
+    <h1>Les impacts des réseaux sociaux</h1>
+
+    <div class="impact-intro">
+      <p>
+        Les réseaux sociaux occupent aujourd’hui une place immense dans nos vies.  
+        Pourtant, leur usage excessif peut devenir un véritable piège :  
+        <strong>addiction, perte d’attention, isolement social, cyberharcèlement</strong> ou encore <strong>trouble du sommeil</strong>.  
+        Ces effets sont particulièrement visibles chez les plus jeunes générations, exposées très tôt aux écrans.
+      </p>
+      <p>
+        Comprendre cette évolution aide à mieux réguler notre utilisation quotidienne.  
+        Découvre ci-dessous comment le <strong>temps d’écran</strong> a évolué selon les tranches d’âge au fil des 10 dernières années ⬇️
+      </p>
+    </div>
+
+    <div class="comparatif-container">
+      <h2>Prévention – Temps d’écran moyen en France</h2>
+
+      <p class="intro">Compare le temps d’écran selon la tranche d’âge et observe l’évolution des 10 dernières années.</p>
+
+      <div class="select-age">
+        <label for="ageSelect">Choisis une tranche d’âge :</label>
+        <select id="ageSelect">
+            <option value="0-3 ans">0–3 ans</option>
+            <option value="3-12 ans">3–12 ans</option>
+            <option value="13-17 ans">13–17 ans</option>
+            <option value="18-50 ans">18–50 ans</option>
+            <option value="+50 ans">+50 ans</option>
+        </select>
+
+      </div>
+
+      <div class="comparatif-card">
+        <div class="colonne">
+          <h3>Il y a 10 ans</h3>
+          <p id="tempsAvant" class="temps">–</p>
+        </div>
+        <div class="colonne">
+          <h3>Aujourd’hui</h3>
+          <p id="tempsMaintenant" class="temps">–</p>
+        </div>
+      </div>
+
+      <div class="difference">
+        <p id="diffText"></p>
+        <p id="ageMessage" style="font-size:0.95rem;color:#ccc;margin-top:0.5rem;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SCRIPT PRINCIPAL ==== -->
+  <script>
+    const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    const dataWorld = {
+      "Facebook": [1.55,1.69,1.86,2.13,2.32,2.45,2.60,2.74,2.91,3.00,3.10],
+      "YouTube": [1.20,1.40,1.50,1.80,2.00,2.30,2.60,2.80,2.90,3.00,3.10],
+      "WhatsApp": [0.90,1.00,1.30,1.50,1.80,1.90,2.00,2.20,2.30,2.40,2.50],
+      "Instagram": [0.40,0.70,1.00,1.10,1.30,1.50,1.80,2.00,2.20,2.30,2.40],
+      "TikTok": [0.00,0.00,0.00,0.40,0.80,1.10,1.50,1.80,2.10,2.30,2.40],
+      "X (Twitter)": [0.32,0.33,0.35,0.37,0.39,0.40,0.42,0.44,0.46,0.48,0.50]
+    };
+    const dataEurope = {
+      "Facebook": [270,280,290,300,310,320,330,340,350,355,360],
+      "YouTube": [250,260,270,280,290,300,310,320,330,340,350],
+      "Instagram": [90,100,120,150,180,200,220,240,260,270,280],
+      "WhatsApp": [200,220,240,260,280,300,320,340,350,355,360],
+      "TikTok": [0,0,0,20,60,100,140,180,210,230,250],
+      "X (Twitter)": [65,70,72,74,75,76,77,78,79,80,81]
+    };
+    const dataFrance = {
+      "Facebook": [30,32,33,34.9,35,39.6,40,40,40,40,40],
+      "Instagram": [6,10,13,16.7,17,24.9,29,31,32,33,34],
+      "YouTube": [6,7,10,12,19,20,22,24,26,27,28],
+      "WhatsApp": [1.5,8,12,15,16,19,22,25,27,28,30],
+      "TikTok": [0,0,0,4,9,12,15,18,20,21,22],
+      "X (Twitter)": [7,6,8,9,12,12,13,13,13,13,13]
+    };
+    const colors = {
+      "Facebook": "#1877F2",
+      "YouTube": "#FF0000",
+      "Instagram": "#E1306C",
+      "WhatsApp": "#25D366",
+      "TikTok": "#FFFFFF",
+      "X (Twitter)": "#1DA1F2"
+    };
+    const icons = {
+      "Facebook": "icon/facebook.svg",
+      "YouTube": "icon/youtube.svg",
+      "Instagram": "icon/instagram.svg",
+      "WhatsApp": "icon/whatsapp.svg",
+      "TikTok": "icon/tiktok.svg",
+      "X (Twitter)": "icon/x.png"
+    };
+
+    function createChart(ctx, data, unit) {
+      return new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: years,
+          datasets: Object.keys(data).map(net => ({
+            label: net,
+            data: data[net],
+            borderColor: colors[net],
+            backgroundColor: colors[net],
+            pointBackgroundColor: colors[net],
+            pointRadius: 3,
+            borderWidth: 2,
+            tension: 0.35,
+            fill: false
+          }))
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" } },
+            y: { grid: { color: "rgba(255,255,255,0.1)" }, ticks: { color: "#fff" }, title: { display: true, text: `Utilisateurs (${unit})` } }
+          }
+        }
+      });
+    }
+
+    const chartWorld = createChart(document.getElementById("chartWorld"), dataWorld, "milliards");
+    const chartEurope = createChart(document.getElementById("chartEurope"), dataEurope, "millions");
+    const chartFrance = createChart(document.getElementById("chartFrance"), dataFrance, "millions");
+    const charts = { world: chartWorld, europe: chartEurope, france: chartFrance };
+
+    function createLegend(containerId, data, chart) {
+      const container = document.getElementById(containerId);
+      Object.keys(data).forEach(name => {
+        const item = document.createElement("div");
+        item.classList.add("legend-item");
+        item.innerHTML = `
+          <img src="${icons[name]}" alt="${name}" style="width:20px; height:20px; object-fit:contain;">
+          <span style="color:${colors[name]}; font-weight:600;">${name}</span>
+        `;
+        item.addEventListener("click", () => highlightNetwork(name, chart));
+        container.appendChild(item);
+      });
+    }
+
+    function highlightNetwork(network, chart) {
+      chart.data.datasets.forEach(ds => {
+        const isSelected = ds.label === network;
+        ds.borderColor = isSelected ? colors[ds.label] : colors[ds.label] + "55";
+        ds.backgroundColor = isSelected ? colors[ds.label] : colors[ds.label] + "33";
+        ds.borderWidth = isSelected ? 3 : 2;
+      });
+      chart.update();
+    }
+
+    document.querySelectorAll(".reset-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.chart;
+        const chart = charts[target];
+        chart.data.datasets.forEach(ds => {
+          ds.borderColor = colors[ds.label];
+          ds.backgroundColor = colors[ds.label];
+          ds.borderWidth = 2;
+        });
+        chart.update();
+      });
+    });
+
+    createLegend("legendWorld", dataWorld, chartWorld);
+    createLegend("legendEurope", dataEurope, chartEurope);
+    createLegend("legendFrance", dataFrance, chartFrance);
+
+    /* ==== SECTION LEURS HISTOIRES ==== */
+    const reseaux = [
+      { nom: "Facebook, du campus à la Terre entière", icon: "icon/facebook.svg", pdg: "Mark Zuckerberg", image: "pdg/facebook.webp", description: "Facebook a été fondé en 2004 par Mark Zuckerberg et quelques camarades de l’université Harvard. À l’origine, le site s’appelait “TheFacebook” et servait uniquement aux étudiants de Harvard pour se connecter entre eux. Son succès fulgurant a rapidement poussé Zuckerberg à ouvrir la plateforme à d’autres universités, puis au grand public. En quelques années, Facebook est devenu le réseau social le plus populaire au monde, révolutionnant la manière dont les gens communiquent, partagent et s’informent. Rachetant Instagram et WhatsApp, l’entreprise a étendu son influence bien au-delà de son site d’origine. Aujourd’hui, sous le nom de Meta, elle continue de façonner le futur du numérique à travers la réalité virtuelle et le métavers." },
+
+
+      { nom: "Instagram, le règne de l’image", icon: "icon/instagram.svg", pdg: "Adam Mosseri", image: "pdg/instagram.webp", description: "Apparu en 2010, Instagram a été fondé par Kevin Systrom, passionné de photographie au lycée.Lors de son lancement, le réseau social connut un succès immédiat. Plus de 25 000 téléchargements en une seule journée, et l’application comptait déjà 1 million d’utilisateurs à la fin de l’année.Ce qui est drôle, c’est que pendant le développement de l’application, Kevin a été incité par un employé de Facebook, Adam D’Angelo, à venir travailler dans l’entreprise qui, des années plus tard, rachètera Instagram pour environ 1 milliard de dollars." },
+
+
+      { nom: "WhatsApp, la messagerie devenue indispensable", icon: "icon/whatsapp.svg", pdg: "Will Cathcart", image: "pdg/whatsapp.webp", description: "WhatsApp a été créé en 2009 par Jan Koum et Brian Acton pour permettre de messager gratuitement via Internet. L’application est rapidement devenue populaire grâce à sa simplicité et à l’absence de publicité. En 2014, elle a été rachetée par Facebook (aujourd’hui Meta). WhatsApp a ensuite ajouté des appels vocaux et vidéo, des groupes et un chiffrement de bout en bout pour sécuriser les conversations. Aujourd’hui, elle compte plus de 2 milliards d’utilisateurs dans le monde et reste un outil de communication rapide et fiable." },
+
+
+      { nom: "TikTok, la révolution des vidéos courtes", icon: "icon/tiktok.svg", pdg: "Shou Zi Chew", image: "pdg/tiktok.webp", description: "TikTok a été lancé en 2016 par la société chinoise ByteDance sous le nom de Douyin en Chine, puis sous le nom TikTok à l’international en 2018. L’application permet de créer et partager de courtes vidéos musicales ou humoristiques. Elle est rapidement devenue populaire grâce à son algorithme qui propose des contenus personnalisés pour chaque utilisateur. En 2018, TikTok a fusionné avec l’application Musical.ly, ce qui a renforcé sa présence mondiale. Aujourd’hui, TikTok compte plus d’un milliard d’utilisateurs et continue d’influencer la culture populaire avec ses défis, tendances et vidéos virales." },
+
+
+      { nom: "YouTube, la révolution de la vidéo", icon: "icon/youtube.svg", pdg: "Neal Mohan", image: "pdg/youtube.webp", description: "En février 2005, Steve Chen, Chad Hurley et Jawed Karim, tous trois des anciens employés de PayPal, rassemblés par le besoin commun de trouver des images de bonne qualité d’un événement spécifique, ont eu l’idée de créer une plateforme de vidéos en ligne qu’on connaît aujourd’hui sous le nom de YouTube, qui devait à l’origine être un site de rencontre. Finalement, Google a racheté la plateforme l’année suivante pour 1,65 milliard de dollars. La première vidéo de la plateforme fut Me at the zoo, unique publication sur la chaîne de Jawed, l’un des trois créateurs du site. Une vidéo historique ayant rassemblé jusqu’à ce jour plus de 373 millions de vues. Aujourd’hui, Jawed se sert toujours de cette vidéo pour véhiculer ses opinions et émettre des critiques en modifiant la description de cette dernière." },
+
+
+      { nom: "X, des tweets à l’influence mondiale", icon: "icon/x.png", pdg: "Elon Musk", image: "pdg/x.webp", description: "Créé le 21 mars 2006 au sein d’une start-up à San Francisco par Noah Glass et Evan Williams, ce dernier est connu pour avoir cofondé Pyra Labs, une société à qui appartient la célèbre plateforme “Blogger” qui permettait à ses utilisateurs de créer leurs propres sites de blog. Le 13 juillet 2006, une première version de Twitter fut ouverte au public sous le nom de Stat.us, ensuite renommé Twttr, puis ensuite Twitter. Il s’agissait d’un réseau social de type microblogage. Le microblogage est un dérivé du blog, un type de site internet proliférant entre 2003 et 2010 qui consistait à publier régulièrement des articles personnels. Le microblogage est donc l’adaptation de ce format en contenu court, en imposant une limite de caractères par publication (exemple : la limite des tweets est de 280 caractères). Le premier tweet du site était celui d’un certain Jack Dorsey publiant “Just setting up my twttr” (en train d’installer mon twttr). C’est en une quinzaine d'années plus tard, en juillet 2023, qu’Elon Musk racheta le site pour la somme colossale de 44 milliards de dollars, en le renommant X." }
+
+
+    ];
+
+    const carousel = document.getElementById("carousel");
+    const nomElem = document.getElementById("reseau-nom");
+    const descElem = document.getElementById("reseau-description");
+    const imageElem = document.getElementById("reseau-image");
+    const pdgElem = document.getElementById("reseau-pdg");
+    let index = 0;
+
+    function renderCarousel() {
+      carousel.innerHTML = "";
+      reseaux.forEach((r, i) => {
+        const img = document.createElement("img");
+        img.src = r.icon;
+        img.alt = r.nom;
+        img.classList.add(i === index ? "active" : "inactive");
+        carousel.appendChild(img);
+        img.addEventListener("click", function () {
+          index = i; renderCarousel();
+        });
+      });
+      nomElem.textContent = reseaux[index].nom;
+      descElem.textContent = reseaux[index].description;
+      imageElem.src = reseaux[index].image;
+      pdgElem.textContent = reseaux[index].pdg;
+    }
+
+    function next() { index = (index + 1) % reseaux.length; renderCarousel(); }
+    function prev() { index = (index - 1 + reseaux.length) % reseaux.length; renderCarousel(); }
+
+    document.getElementById("next").addEventListener("click", next);
+    document.getElementById("prev").addEventListener("click", prev);
+
+    renderCarousel();
+  </script>
+
+  <!-- ==== OBSERVER ==== -->
+  <script>
+  window.addEventListener("load", () => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".chart-card, .histoires-section, .impact-section").forEach(el => {
+      if (el) observer.observe(el);
+    });
+  });
+  </script>
+
+  <!-- ==== SCRIPT PRÉVENTION ==== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ==== Données temps d’écran (en heures décimales) ====
+  const tempsEcran = {
+    "0-3 ans": { avant: 1, maintenant: 1.5 },
+    "3-12 ans": { avant: 2, maintenant: 3 },
+    "13-17 ans": { avant: 3.5, maintenant: 5 },
+    "18-50 ans": { avant: 3, maintenant: 4 },
+    "+50 ans": { avant: 2.5, maintenant: 3.5 }
+  };
+
+  const ageSelect = document.getElementById("ageSelect");
+  const tempsAvant = document.getElementById("tempsAvant");
+  const tempsMaintenant = document.getElementById("tempsMaintenant");
+  const diffText = document.getElementById("diffText");
+  const ageMessage = document.getElementById("ageMessage");
+
+  // ==== Fonction de formatage en "XhXX" ====
+  function formatHeure(nombre) {
+    const heures = Math.floor(nombre);
+    const minutes = Math.round((nombre - heures) * 60);
+    return minutes === 0 ? `${heures}h` : `${heures}h${minutes.toString().padStart(2, "0")}`;
+  }
+
+  // ==== Fonction d'animation numérique ====
+  function animateValue(element, start, end, duration) {
+    const range = end - start;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = start + range * progress;
+      element.textContent = formatHeure(value.toFixed(1));
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // ==== Fonction principale ====
+  function updateTempsEcran(age) {
+    const data = tempsEcran[age];
+    if (!data) return;
+
+    const prevAvant = parseFloat(tempsAvant.textContent) || 0;
+    const prevMaintenant = parseFloat(tempsMaintenant.textContent) || 0;
+
+    animateValue(tempsAvant, prevAvant, data.avant, 800);
+    animateValue(tempsMaintenant, prevMaintenant, data.maintenant, 800);
+
+    const diff = data.maintenant - data.avant;
+    const signe = diff > 0 ? "+" : "";
+    diffText.textContent = `${signe}${diff.toFixed(1)}h par jour en 10 ans 📈`;
+    ageMessage.textContent = `Les ${age} passent en moyenne ${formatHeure(data.maintenant)} par jour devant les écrans.`;
+  }
+
+  // ==== Événement changement ====
+  ageSelect.addEventListener("change", e => updateTempsEcran(e.target.value));
+
+  // ==== Initialisation par défaut ====
+  updateTempsEcran(ageSelect.value);
+});
+</script>
+
+<!-- ==== SCRIPT PLANÈTE & TRANSITION ==== -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const earthEl = document.getElementById("earthHost");
+    const franceMap = document.getElementById("franceMap");
+    const franceSection = document.getElementById("franceSection");
+    let vanta = null;
+
+    function startGlobe() {
+      if (vanta) return;
+      if (!window.VANTA || !window.THREE) return;
+      vanta = VANTA.GLOBE({
+        el: earthEl,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x153ab2,
+        color2: 0x2a1780,
+        backgroundColor: 0x00000f,
+      });
+    }
+
+    function stopGlobe() {
+      if (vanta && typeof vanta.destroy === "function") {
+        vanta.destroy();
+        vanta = null;
+      }
+    }
+
+    startGlobe();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const inView = entry.isIntersecting && entry.intersectionRatio > 0.45;
+        if (inView) {
+          franceMap.classList.add("visible");
+          stopGlobe();
+        } else {
+          franceMap.classList.remove("visible");
+          startGlobe();
+        }
+      });
+    }, { threshold: [0, 0.45, 1] });
+
+    if (franceSection) io.observe(franceSection);
+
+    window.addEventListener("resize", () => {
+      if (!franceMap.classList.contains("visible")) {
+        stopGlobe();
+        startGlobe();
+      }
+    });
+  });
+  </script>
+
+  
+<footer>
+  <p>© 2025 Datavize – Projet étudiant MMI | <a href="mentions-legales.html">Mentions légales</a></p>
+</footer>
+
+</body>
+</html>
