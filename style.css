@@ -52,7 +52,7 @@ h1.title {
   color: white;
 }
 
-//* 
+/* 
 #bg-video {
   position: fixed;
   inset: 0;
@@ -557,4 +557,5 @@ footer {
     width: 48px;
     height: 48px;
   }
+
 }
