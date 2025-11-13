@@ -1,3 +1,9 @@
+html {
+
+  scroll-behavior: smooth;
+
+}
+
 /* ==== FOND ANIMÉ GLOBAL ==== */
 body {
   font-family: 'Inter', sans-serif;
