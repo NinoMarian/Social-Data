@@ -1,3 +1,9 @@
+html {
+
+  scroll-behavior: smooth;
+
+}
+
 /* ==== FOND ANIMÉ GLOBAL ==== */
 body {
   font-family: 'Inter', sans-serif;
@@ -557,4 +563,5 @@ footer {
     width: 48px;
     height: 48px;
   }
+
 }
