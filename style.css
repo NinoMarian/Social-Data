@@ -7,7 +7,7 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  background: linear-gradient(-45deg, #0d102f, #1b1e4b, #2a1780, #003d99);
+  background: linear-gradient(-45deg, #131738, #1b1e4b, #140750, #181844);
 }
 
 
@@ -52,17 +52,20 @@ h1.title {
   color: white;
 }
 
-/* #bg-video {
+//* 
+#bg-video {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   filter: brightness(0.45) saturate(1.1);
-  z-index: -2; /* tout au fond */
+  z-index: -2;  tout au fond 
   pointer-events: none;
-}
- */
+
+*/
+
+
 #intro::before {
   content: "";
   position: absolute;
@@ -100,7 +103,7 @@ h1.title {
   height: 100%;
   object-fit: cover;
   z-index: -2;
-  
+
 }
 
 /* Optionnel : effet spatial sombre par-dessus */
@@ -108,7 +111,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1; /* au-dessus de la vidéo, sous le contenu */
+  z-index: -1;
+  /* au-dessus de la vidéo, sous le contenu */
   pointer-events: none;
 }
 
@@ -132,7 +136,7 @@ body::before {
 
 .overlay {
   position: relative;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .overlay h1 {
