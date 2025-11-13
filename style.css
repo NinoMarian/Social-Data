@@ -1,3 +1,29 @@
+/* == FONT == */
+
+@font-face {
+  font-family: "Bitcount";
+  src: url("fonts/bitcount.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings:
+  "slnt" 0,
+  "CRSV" 0.5,
+  "ELSH" 0,
+  "ELXP" 0,
+  "SZP1" 0,
+  "SZP2" 0,
+  "XPN1" 0,
+  "XPN2" 0,
+  "YPN1" 0,
+  "YPN2" 0;
+/* Remplace la couleur jaune par défaut de Bitcount avec le violet habituelle */
+}
+
+h1, h2 {
+  font-family: "Bitcount Prop Single Ink", system-ui;
+  font-optical-sizing: auto;  
+  }
+
 html {
 
   scroll-behavior: smooth;
@@ -38,7 +64,7 @@ section,
 
 h1,
 h2 {
-  font-family: "Bitcount Prop Single Ink", system-ui;
+  font-family: "Bitcount", system-ui;
   text-align: center;
   color: #fff;
   text-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
@@ -92,6 +118,7 @@ h1.title {
 }
 
 .overlay h1 {
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
   font-size: clamp(3rem, 10vw, 6rem);
   letter-spacing: 8px;
   background: linear-gradient(90deg, #00d4ff, #ff00cc);
@@ -100,6 +127,7 @@ h1.title {
   filter: drop-shadow(0 0 15px rgba(255, 0, 204, 0.4));
   animation: fadeInDown 1.5s ease-out;
 }
+
 
 /* ==== VIDÉO FOND TERRE ==== */
 #earthVideo {
@@ -128,7 +156,7 @@ body::before {
   height: 100vh;
   overflow: hidden;
   color: white;
-  font-family: "Bitcount Prop Single Ink", sans-serif;
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
 }
 
 
@@ -146,6 +174,7 @@ body::before {
 }
 
 .overlay h1 {
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
   font-size: 6rem;
   letter-spacing: 8px;
   background: linear-gradient(90deg, #00d4ff, #ff00cc);
@@ -157,6 +186,7 @@ body::before {
 
 /* effet machine à écrire horizontal */
 .overlay h2 {
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.6rem);
   margin-top: 15px;
   color: rgba(255, 255, 255, 0.9);
@@ -168,6 +198,7 @@ body::before {
 }
 
 .overlay p {
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
   margin-top: 20px;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.75);
@@ -386,6 +417,13 @@ canvas {
 
 .carousel img.inactive {
   opacity: 0.6;
+}
+
+.carousel img.inactive:hover {
+
+  opacity: 0.7;
+  transform: scale(1.15);
+
 }
 
 .reseau-info {
