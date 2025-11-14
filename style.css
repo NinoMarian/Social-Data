@@ -165,7 +165,7 @@ body::before {
   animation: fadeInDown 1.5s ease-out;
 }
 
-/* effet machine à écrire horizontal */
+/* machine à écrire horizontal */
 .overlay h2 {
   font-size: clamp(1.1rem, 2.3vw, 1.8rem);
   margin-top: 15px;
@@ -174,6 +174,7 @@ body::before {
   white-space: nowrap;
   border-right: 2px solid #fff;
   width: 0;
+  max-width: max-content;
   animation: typing 2.6s steps(52) 1s forwards,
              blink 0.75s step-end infinite 3.6s;
 }
@@ -217,8 +218,9 @@ body::before {
 
 @keyframes typing {
   from { width: 0; }
-  to   { width: 52ch; }
+  to   { width: 100%; }
 }
+
 
 @keyframes blink {
   50% { border-color: transparent; }
