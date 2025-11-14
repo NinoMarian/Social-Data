@@ -1,3 +1,14 @@
+@font-face {
+  font-family: "InconsolataCondensed";
+  src: url("fonts/Inconsolata_Condensed-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
 html {
 
   scroll-behavior: smooth;
@@ -6,7 +17,7 @@ html {
 
 /* ==== FOND ANIMÉ GLOBAL ==== */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Arial", sans-serif;
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -38,7 +49,7 @@ section,
 
 h1,
 h2 {
-  font-family: "Bitcount Prop Single Ink", system-ui;
+    font-family: "InconsolataCondensed", sans-serif;
   text-align: center;
   color: #fff;
   text-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
@@ -128,7 +139,6 @@ body::before {
   height: 100vh;
   overflow: hidden;
   color: white;
-  font-family: "Bitcount Prop Single Ink", sans-serif;
 }
 
 
@@ -157,15 +167,19 @@ body::before {
 
 /* effet machine à écrire horizontal */
 .overlay h2 {
-  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  font-size: clamp(1.1rem, 2.3vw, 1.8rem);
   margin-top: 15px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   overflow: hidden;
-  border-right: 2px solid #fff;
   white-space: nowrap;
+  border-right: 2px solid #fff;
   width: 0;
-  animation: typing 4s steps(45, end) 1.2s forwards, blink 0.75s step-end infinite 5s;
+  animation: typing 2.6s steps(52) 1s forwards,
+             blink 0.75s step-end infinite 3.6s;
 }
+
+
+
 
 .overlay p {
   margin-top: 20px;
@@ -202,20 +216,14 @@ body::before {
 }
 
 @keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 45ch;
-  }
+  from { width: 0; }
+  to   { width: 52ch; }
 }
 
 @keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+  50% { border-color: transparent; }
 }
+
 
 @keyframes fadeIn {
   from {
@@ -245,6 +253,16 @@ body::before {
     transform: translateY(-5px);
   }
 }
+
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 52ch; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
 
 /* ===== CHARTS ===== */
 .charts-container {
