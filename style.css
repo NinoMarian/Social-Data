@@ -5,6 +5,11 @@
   src: url("fonts/bitcount.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+}
+
+h1, h2 {
+  font-family: "Bitcount Prop Single Ink", system-ui;
+  font-optical-sizing: auto;
   font-variation-settings:
   "slnt" 0,
   "CRSV" 0.5,
@@ -16,12 +21,7 @@
   "XPN2" 0,
   "YPN1" 0,
   "YPN2" 0;
-/* Remplace la couleur jaune par défaut de Bitcount avec le violet habituelle */
-}
-
-h1, h2 {
-  font-family: "Bitcount Prop Single Ink", system-ui;
-  font-optical-sizing: auto;  
+/* Remplace la couleur jaune par défaut de Bitcount avec le violet habituelle */  
   }
 
 html {
@@ -64,7 +64,7 @@ section,
 
 h1,
 h2 {
-  font-family: "Bitcount", system-ui;
+  font-family: 'Bitcount Prop Single Ink','Bitcount', sans-serif;
   text-align: center;
   color: #fff;
   text-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
@@ -204,6 +204,19 @@ body::before {
   color: rgba(255, 255, 255, 0.75);
   opacity: 0;
   animation: fadeIn 2s ease-in-out 5s forwards;
+
+  font-variation-settings:
+  "slnt" 0,
+  "CRSV" 0.5,
+  "ELSH" 0,
+  "ELXP" 0,
+  "SZP1" 0,
+  "SZP2" 0,
+  "XPN1" 0,
+  "XPN2" 0,
+  "YPN1" 0,
+  "YPN2" 0;
+/* Remplace la couleur jaune par défaut de Bitcount avec le violet habituelle pour le .overlay p spécifiquement*/
 }
 
 .scroll-down {
